@@ -12,7 +12,7 @@
     <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
-    <meta name="description" content="list" />
+    <meta name="description" content="" />
     <meta name="hexo-theme-A4" content="v1.9.9" />
     <link rel="alternate icon" type="image/webp" href="https://avatars.githubusercontent.com/u/190931659?v=4">
     <title>Firgt&amp;Lai&#39;s Stories</title>
@@ -31,10 +31,6 @@
 <link rel="stylesheet" href="/css/fonts.css">
  
          <!--注意：首页既不是post也不是page-->
-        
-            
-<link rel="stylesheet" href="/css/waline.css">
-
         
         
         
@@ -285,8 +281,8 @@
             
 
             
-                <div class="shadow-drop-2-top paper-main">
-                     
+                <div class="shadow-drop-2-bottom paper-main">
+                    
 
 
 <div class="header">
@@ -321,13 +317,7 @@
             
         
             
-                <li><i>
-                    
-                        <u>
-                            <a  href="/list/">作品</a>
-                        </u>
-                    
-                </i></li>
+                <li><a href="/list/">作品</a></li>
             
         
             
@@ -339,100 +329,58 @@
             
         
             
-                <li><a href="/categories/">分类</a></li>
+                <li><i>
+                    
+                        <u>
+                            <a  href="/categories/">分类</a>
+                        </u>
+                    
+                </i></li>
             
         
     </ul>
 </div>
-                     <div class="archive-list">
+
+                    
+                    
+
+                    
+                    
+                        
+
+<div class="archive-list">
   <ul class="archive">
-      
 
-      <!--文章先按照时间排好序-->
-      
-
-
-      
-      
-
-      
-
-      
-      
-      
-
-      <!--循环遍历文章数组-->
-      
-
-      <!--排序 置顶 文章-->
-      
-
-      <!--先放 置顶 文章-->
-      
-
-      <!--rough-notation风格效果-->
-      
-        <script src="/js/roughNotation.js" defer></script>
-        <script>
-          // 浏览器严格模式
-          if (typeof window !== 'undefined') {
-            window.themeConfig = {"menu":{"首页":"/","作品":"/list/","关于":"https://blog.firgt.cn/about","版权声明":"/disclaimer/","分类":"/categories/"},"showInMenu":["作品","关于","版权声明","分类"],"index":{"header":null,"hitokoto":true,"footer":"Email:3412510445@qq.com","titlePosition":"left","width":"middle","list":true},"footerLink":{"info":"一个安静的阅读室和创作室","关于作品版权的声明":"/disclaimer/","More":"https://firgt.cn","Blog":"https://blog.firgt.cn","联系":"https://blog.firgt.cn/about/"},"post":{"footer":"©2025 FirgtZhong以及他的好朋友Lai Zhiyong.","themeInfo":true,"width":"middle","titlePosition":"left"},"favicon":"https://avatars.githubusercontent.com/u/190931659?v=4","isRoundedAvatar":false,"isAvatarRotating":false,"tool":{"darkMode":false,"returnToTop":true,"returnToLast":true,"topToc":true,"leftToc":true,"recentUpdatePost":false},"indexInfo":{"allWordCount":true,"allViewCount":true},"postInfo":{"updateDate":true,"wordCount":true,"readTime":true,"viewCount":true,"prevAndNextLink":{"status":true,"prevInfo":"上一篇","nextInfo":"下一篇"},"endContent":"以上"},"listInfo":{"enable":true,"hoverStyle":"underline","hoverColor":"#4f7dde","animationDuration":800},"cdn":{"enable":false,"choose":"zzko"},"color":{"enable":true,"font":"#9e5345","background":"#e8e0c9","indexBackGround":"#efeae2","postBackGround":"#efeae2","codeBackGround":"#e8e0c9","codeFont":"#2e5041","linkBeforeClick":"#2e5041","linkAfterClick":"#9c9caf"},"imageShow":{"enable":false,"background":"/img/favicon.webp"},"font":{"enable":true,"LXGWWenKai":true},"lightgallery":{"thumbnail":true,"zoom":true,"rotate":true,"autoplay":true,"fullScreen":true,"pager":true},"comment":{"enable":true,"use":"giscus","waline":{"serverUrl":null,"lang":"zh-CN","placeholder":"留下你的评论吧。"},"twikoo":{"envId":null,"region":null,"lang":null},"giscus":{"dataRepo":"FirgtZhong/story","dataRepoId":"R_kgDOO_d7ZQ","dataCategory":"Announcements","dataCategoryId":"DIC_kwDOO_d7Zc4Crz2m","dataMapping":"pathname","dataTerm":null,"dataStrict":"0","dataReactionsEnabled":"1","dataEmitMetadata":"0","dataInputPosition":"top","dataTheme":"preferred_color_scheme","dataLang":"zh-CN","dataLoading":null,"crossorigin":"anonymous","async":true},"artalk":{"server":null}},"inject":{"css":"css/custom.css"},"version":"v1.9.9"};
-          }
-          document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.archive-title').forEach(el => {
-              const annotation = RoughNotation.annotate(el, {
-                type: themeConfig?.tool?.hoverStyle || 'underline', // 效果,默认为'underline'
-                color: themeConfig?.tool?.hoverColor || '#4f7dde', // 自定义效果颜色
-                animationDuration: themeConfig?.tool?.animationDuration || 800, // 动画持续时间ms
-              });
-              el.addEventListener('mouseenter', () => {
-                if(annotation){
-                annotation.show();
-            }});
-              el.addEventListener('mouseleave', () => {
-                if(annotation){
-                annotation.hide();
-            }});
-            });
-          });
-        </script>
-        
-
-      <!--文章先按照时间排好序-->
-      
-      
-      <!--再放 最近更新 文章-->
-      
-
-      <!--后放 其他 文章-->
-      
-        
-        <li>
-          <span class="year-font-color">2025[1]
-             <span class="darkmode-ignore">🍃</span> 
-          </span>
-        </li>
-        
-        
+    
+    <span><span class="darkmode-ignore">🔖</span><i>《试验品》</i></span>
           
-          <li>
-            <span class="archive-date">&nbsp;&nbsp;&nbsp;06/21 
-            </span>
-            <div class="archive-main">
-              
-                <a class="archive-title"  href="/categories/《试验品》/">
-                  《试验品》 
-                </a> | 
-              
-                <a class="archive-title" href="/2025/06/21/001-First/">第一章【序幕】</a>
-            </div>
-          </li>
-        
-      
+    
+
+    
+    
+
+    
+    
+
+  
+    
+        <li>
+          <span class="archive-date">2025/06/21</span>
+          <div class="archive-main">
+              <a class="archive-title" href="/2025/06/21/001-First/">第一章【序幕】</a>
+          </div>
+        </li>
+    
+  
   </ul>
 </div>
-<!--  -->
-                     <div class="footer">
+
+                    
+
+                    <!--说明是文章post页面-->
+                    
+
+                    <div class="footer">
     
         <span> 
             一个安静的阅读室和创作室 
