@@ -2,9 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://story.firgt.cn/2025/06/23/001-First_01FixedDraft/</loc>
+    <loc>http://story.firgt.cn/2025/06/27/001-First/</loc>
     
-    <lastmod>2025-06-23</lastmod>
+    <lastmod>2025-06-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://story.firgt.cn/2025/06/21/001-First_Old01/</loc>
+    
+    <lastmod>2025-06-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://story.firgt.cn/2025/06/23/001-First_Old02/</loc>
+    
+    <lastmod>2025-06-28</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -47,15 +65,6 @@
   </url>
   
   <url>
-    <loc>http://story.firgt.cn/2025/06/21/001-First/</loc>
-    
-    <lastmod>2025-06-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://story.firgt.cn/categories/index.html</loc>
     
     <lastmod>2025-06-22</lastmod>
@@ -76,7 +85,7 @@
 
   <url>
     <loc>http://story.firgt.cn/</loc>
-    <lastmod>2025-06-24</lastmod>
+    <lastmod>2025-06-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -86,7 +95,7 @@
   
   <url>
     <loc>http://story.firgt.cn/categories/%E3%80%8A%E8%AF%95%E9%AA%8C%E5%93%81%E3%80%8B/</loc>
-    <lastmod>2025-06-24</lastmod>
+    <lastmod>2025-06-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
