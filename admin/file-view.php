@@ -10,7 +10,7 @@ $row = $DB->getRow("SELECT * FROM pre_file WHERE id=:id", [':id'=>$id]);
 if(!$row)exit();
 $name = $row['name'];
 $type = $row['type'];
-$viewurl = $siteurl.'view.php/'.$row['hash'].'.'.$type;
+$viewurl = '/view.php/'.$row['hash'].'.'.$type;
 
 $type_image = explode('|',$conf['type_image']);
 $type_audio = explode('|',$conf['type_audio']);

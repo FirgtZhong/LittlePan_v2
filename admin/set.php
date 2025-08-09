@@ -35,7 +35,6 @@ if($mod=='site'){
 	  <label class="col-sm-2 control-label">禁止访问IP</label>
 	  <div class="col-sm-10"><textarea class="form-control" name="blackip" rows="2" placeholder="多个IP用|隔开"><?php echo $conf['blackip']?></textarea></div>
 	</div><br/>
-
 	<div class="form-group">
 	  <label class="col-sm-2 control-label">文件查看页公告</label>
 	  <div class="col-sm-10"><textarea class="form-control" name="gg_file" rows="3" placeholder="不填写则不显示"><?php echo htmlspecialchars($conf['gg_file'])?></textarea></div>
@@ -51,6 +50,101 @@ if($mod=='site'){
   </form>
 </div>
 </div>
+<?php
+}elseif($mod=='about'){
+    $about_file = SYSTEM_ROOT . '../about.php';
+    $about_content = ''; // 默认为空
+    
+    if(file_exists($about_file)){
+        // 读取整个文件内容
+        $full_content = file_get_contents($about_file);
+        
+        // 使用正则匹配可编辑区域（两个标记之间的内容）
+        if(preg_match('/<!-- EDITABLE_START -->(.*?)<!-- EDITABLE_END -->/s', $full_content, $matches)){
+            $about_content = $matches[1]; // 提取可编辑区域内容
+        } else {
+            // 如果没有找到标记，提示用户文件格式错误
+            $about_content = "<!-- 错误：未找到可编辑区域，请检查about.php是否包含正确的标记 -->";
+        }
+    }
+?>
+
+<!-- 此处插入之前提供的about模块HTML和JS代码 -->
+<div class="panel panel-primary">
+<div class="panel-heading"><h3 class="panel-title">关于页面设置</h3></div>
+<div class="panel-body">
+  <form onsubmit="return saveAbout(this)" method="post" class="form-horizontal" role="form">
+    <div class="form-group">
+      <label class="col-sm-2 control-label">关于页面内容编辑</label>
+      <div class="col-sm-10">
+        <div id="editor" style="width:100%;height:600px;"></div>
+        <textarea name="content" id="content" style="display:none;"><?php echo htmlspecialchars($about_content); ?></textarea>
+        <font color="red">注意：修改会直接影响根目录下的about.php文件，请谨慎操作</font><br><font color="blue">使用<a href="//wangeditor.com">wangEditor</a>编辑</font>
+      </div>
+    </div><br/>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <input type="submit" name="submit" value="保存修改" class="btn btn-primary form-control"/>
+      </div>
+    </div>
+  </form>
+</div>
+</div>
+
+<!-- 引入wangEditor -->
+<script src="/wangEditor.min.js"></script>
+<script>
+// 初始化编辑器
+const E = window.wangEditor
+const editor = new E('#editor')
+const textarea = document.getElementById('content')
+
+editor.config.height = 400
+editor.config.zIndex = 100
+editor.config.showFullScreen = false
+
+editor.config.menus = [
+  'head', 'bold', 'fontSize', 'fontName', 'italic', 'underline', 
+  'strikeThrough', 'foreColor', 'backColor', 'link', 'list', 
+  'justify', 'quote', 'emoticon', 'image', 'table', 'code', 'undo', 'redo'
+]
+
+editor.config.onchange = function (html) {
+  textarea.value = html
+}
+
+editor.create()
+editor.txt.html(textarea.value)
+
+function saveAbout(obj){
+  var ii = layer.load(2, {shade:[0.1,'#fff']});
+  $.ajax({
+    type : 'POST',
+    url : 'ajax.php?act=saveAbout',
+    data : $(obj).serialize(),
+    dataType : 'json',
+    success : function(data) {
+      layer.close(ii);
+      if(data.code == 0){
+        layer.alert('保存成功！', {
+          icon: 1,
+          closeBtn: false
+        }, function(){
+          window.location.reload();
+        });
+      }else{
+        layer.alert(data.msg, {icon: 2})
+      }
+    },
+    error:function(data){
+      layer.msg('服务器错误');
+      return false;
+    }
+  });
+  return false;
+}
+</script>
+
 <?php
 }elseif($mod=='api'){
 $scriptpath=str_replace('\\','/',$_SERVER['SCRIPT_NAME']);

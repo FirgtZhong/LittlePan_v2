@@ -99,4 +99,37 @@ break;
 default:
 	exit('{"code":-4,"msg":"No Act"}');
 break;
+// 在现有case后面添加
+case 'saveAbout':
+    if(!$islogin) exit(json_encode(['code'=>-1, 'msg'=>'请先登录']));
+    
+    $new_editable_content = $_POST['content']; // 用户编辑的新内容
+    $about_file = SYSTEM_ROOT . '../about.php';
+    
+    if(!file_exists($about_file)){
+        exit(json_encode(['code'=>-1, 'msg'=>'about.php文件不存在']));
+    }
+    
+    // 读取原文件完整内容
+    $full_content = file_get_contents($about_file);
+    
+    // 检查是否有可编辑区域标记
+    if(!preg_match('/<!-- EDITABLE_START -->(.*?)<!-- EDITABLE_END -->/s', $full_content)){
+        exit(json_encode(['code'=>-1, 'msg'=>'未找到可编辑区域标记，请检查文件格式']));
+    }
+    
+    // 替换可编辑区域内容（保留标记，只替换中间部分）
+    $updated_content = preg_replace(
+        '/<!-- EDITABLE_START -->(.*?)<!-- EDITABLE_END -->/s',
+        "<!-- EDITABLE_START -->\n" . $new_editable_content . "\n<!-- EDITABLE_END -->",
+        $full_content
+    );
+    
+    // 写入更新后的内容
+    if(file_put_contents($about_file, $updated_content) !== false){
+        exit(json_encode(['code'=>0, 'msg'=>'保存成功']));
+    }else{
+        exit(json_encode(['code'=>-1, 'msg'=>'文件写入失败，请检查权限']));
+    }
+break;
 }

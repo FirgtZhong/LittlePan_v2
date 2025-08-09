@@ -43,6 +43,8 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i> 系统设置<b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li><a href="./set.php?mod=site">网站信息设置</a></li>
+              <!-- 在设置下拉菜单中添加 -->
+              <li><a href="./set.php?mod=about">关于页面设置</a></li>
 			        <li><a href="./set.php?mod=file">文件上传设置</a><li>
 			        <li><a href="./set.php?mod=green">内容安全设置</a><li>
 					<li><a href="./set.php?mod=api">上传API设置</a><li>

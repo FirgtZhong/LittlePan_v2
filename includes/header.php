@@ -22,6 +22,9 @@
     <script src="//cdn.staticfile.org/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="//cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
+
+    <?php echo $conf["tongji"] ?>
+
 </head>
 <body>
 <div id="page-container" class="sidebar-dark side-scroll page-header-fixed page-header-dark main-content-boxed">
