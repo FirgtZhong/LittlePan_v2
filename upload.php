@@ -11,20 +11,35 @@ $_SESSION['csrf_token'] = $csrf_token;
 	<style>
 		.div1, .div2 {
 		  display: inline-block;}
+		.parent {
+
+    display: flex;
+
+
+    justify-content: center; /* 水平居中 */
+
+
+    align-items: center; /* 垂直居中 */
+
+
+
+}
 	</style>
 <main id="main-container">
-	<div class="content content-full">
+    <div class="parent my-10">
+    <center><h1 style="font-size:24px;">选择一个文件开始上传</h1></center>
+	</div>
+	<div class="parent content content-full">
 		<div>
 			<!-- 主上传区域 -->
 			<div class="div2 bg-white rounded-xl shadow-windows border border-gray-100 overflow-hidden">
 				<div class="bg-white rounded-xl shadow-windows border border-gray-100 overflow-hidden">
 					<div class="block-header block-header-default">
 					</div>
-					<div class="flex flex-wrap gap-3 grow mx-5 my-10">
+					<div class="flex flex-wrap gap-3 grow mx-5 my-9">
 						<div id="progressBar" style="display: block;">
 							<!-- 动态显示进度条 -->
 						</div>
-						<h1 class="flex items-center font-bold text-windows-dark">选择一个文件开始上传</h1>
 						<br />
 						<input type="hidden" id="csrf_token" name="csrf_token" value="<?php echo $csrf_token ?>">
 						<div id="upload_block" class="mb-3"></div>
