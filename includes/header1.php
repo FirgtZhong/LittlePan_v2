@@ -12,6 +12,8 @@
     <script src="https://cdn.tailwindcss.com/3.4.17"></script>
     <!-- 引入Font Awesome -->
     <link href="https://cdn.jsdmirror.com/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+
     <?php echo isset($conf["tongji"]) ? $conf["tongji"] : ''; ?>
     
     <!-- 配置Tailwind自定义主题 -->
@@ -170,7 +172,10 @@
                 </div>
                 <h1 class="text-xl font-semibold"><?php echo isset($title) ? $title : '网站标题'; ?></h1>
             </div>
-            
+            <!-- 添加移动端菜单按钮（就在这里添加） -->
+			<button id="mobileMenuToggle" class="menu-toggle md:hidden">
+				<i class="fa fa-bars text-xl"></i>
+			</button>
             <!-- 导航菜单 -->
             <nav id="mainNav" class="hidden md:flex items-center space-x-1 md:space-x-3">
                 <a href="/" class="site-nav-link <?php echo $_SERVER['PHP_SELF'] == '/' ? 'active' : ''; ?>" 
@@ -240,3 +245,5 @@
             });
         });
     </script>
+
+       
