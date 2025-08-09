@@ -94,5 +94,7 @@ $_SESSION['csrf_token'] = $csrf_token;
 	    document.getElementById('pwd_frame').style.display = this.checked ? 'block' : 'none';
 	});
 </script>
+<script src="//cdn.staticfile.org/jquery/3.6.0/jquery.min.js"></script>
+
 <script src="assets/js/upload.js"></script>
 <?php include SYSTEM_ROOT . 'footer1.php'; ?>
