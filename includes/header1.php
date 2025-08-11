@@ -116,7 +116,7 @@
                    title="管理">
                     <i class="fa fa-folder-open mr-2"></i>管理
                 </a>
-                <a href="https://blog.firgt.cn/2025/07/23/firgt-cloud-api-doc/" class="px-3 py-2 rounded hover:bg-windows-hover text-windows-dark hover:text-windows-blue transition-windows" 
+                <a href="/apidoc.php" class="px-3 py-2 rounded hover:bg-windows-hover text-windows-dark hover:text-windows-blue transition-windows" 
                    title="API文档" target="_blank" rel="noopener noreferrer">
                     <i class="fa fa-code mr-2"></i>API文档
                 </a>
@@ -139,7 +139,7 @@
                 <a href="/myfile.php" class="px-3 py-2 rounded hover:bg-windows-hover text-windows-dark hover:text-windows-blue transition-windows">
                     <i class="fa fa-folder-open mr-2"></i>管理
                 </a>
-                <a href="https://blog.firgt.cn/2025/07/23/firgt-cloud-api-doc/" class="px-3 py-2 rounded hover:bg-windows-hover text-windows-dark hover:text-windows-blue transition-windows" 
+                <a href="/apidoc.php" class="px-3 py-2 rounded hover:bg-windows-hover text-windows-dark hover:text-windows-blue transition-windows" 
                    target="_blank" rel="noopener noreferrer">
                     <i class="fa fa-code mr-2"></i>API文档
                 </a>
