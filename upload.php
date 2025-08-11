@@ -26,7 +26,7 @@ $_SESSION['csrf_token'] = $csrf_token;
                 <div class="lg:col-span-2">
                     <div class="bg-white rounded-lg shadow-windows p-6 transition-windows hover:shadow-lg">
                         <!-- 进度条容器 -->
-                        <div id="progressBar" class="w-100 h-32 mb-6 h-1.5 bg-gray-200 rounded-lg overflow-hidden">
+                        <div id="progressBar" class="w-100 h-16 mb-6 h-1.5 bg-gray-200 rounded-lg overflow-hidden">
                             <!-- 进度条将由JS动态生成 -->
                         </div>
                         
@@ -110,28 +110,12 @@ $_SESSION['csrf_token'] = $csrf_token;
         </div>
     </main>
 
-    <!-- 页脚 -->
-    <footer class="bg-white border-t border-gray-200 mt-12">
-        <div class="container mx-auto px-4 py-6">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-4 md:mb-0">
-                    <a class="font-semibold text-windows-blue" href="/"><?php echo htmlspecialchars($conf['title']); ?></a> &copy; <?php echo date('Y'); ?>
-                </div>
-                <div class="text-sm text-gray-600">
-                    由 <a class="text-windows-blue hover:underline" href="https://github.com/FirgtZhong" target="_blank" rel="noopener noreferrer">FirgtZhong</a> 开发
-                </div>
-            </div>
-        </div>
-    </footer>
 
     <!-- JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <?php include("./includes/footer1.php"); ?>
     <script>
-        // 移动端菜单切换
-        document.getElementById('mobileMenuToggle').addEventListener('click', function() {
-            const mobileNav = document.getElementById('mobileNav');
-            mobileNav.classList.toggle('hidden');
-        });
+
 
         // 密码框显示/隐藏控制
         document.getElementById('ispwd').addEventListener('change', function() {
