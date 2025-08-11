@@ -18,7 +18,11 @@
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
-                
+                // 移动端菜单切换
+        document.getElementById('mobileMenuToggle').addEventListener('click', function() {
+            const mobileNav = document.getElementById('mobileNav');
+            mobileNav.classList.toggle('hidden');
+        });
                 // 获取目标页面ID
                 const targetId = this.getAttribute('href').substring(1);
                 
