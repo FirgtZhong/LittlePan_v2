@@ -121,13 +121,13 @@ $mysqlversion=$DB->getColumn("select VERSION()");
 			<b>程序最大运行时间：</b><?php echo ini_get('max_execution_time') ?>s
 		</li>
 		<li class="list-group-item">
-			<b>POST许可：</b><?php echo ini_get('post_max_size'); ?>
+			<b>POST请求许可：</b><?php echo ini_get('post_max_size'); ?>
 		</li>
 		<li class="list-group-item">
 			<b>文件上传许可：</b><?php echo ini_get('upload_max_filesize'); ?>
 		</li>
 				<li class="list-group-item">
-			<b>源站连接：</b><a href="<?php echo $conf['url']; ?>"><font color="green">正常</font></a>
+			<b>源码版本：</b><a href="<?php echo $conf['url']; ?>"><font color="green">LittlePan_v2-v1.0.0-RC</font></a>
 		</li>
 	</ul>
 </div>

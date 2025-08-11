@@ -12,10 +12,6 @@
         </footer>
     </div>
 
-    <!-- Bootstrap and OneUI framework -->
-    <script src="//cdn.staticfile.org/jquery/3.6.0/jquery.min.js"></script>
-    <script src="assets/js/oneui.core.min.js"></script>
-    <script src="assets/js/oneui.app.min.js"></script>
 
     <script>
         $(document).ready(function() {

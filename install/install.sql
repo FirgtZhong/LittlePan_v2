@@ -12,7 +12,7 @@ INSERT INTO `pre_config` VALUES ('blackip', '');
 INSERT INTO `pre_config` VALUES ('title', '外链网盘');
 INSERT INTO `pre_config` VALUES ('keywords', '外链网盘,免费外链,免费图床,图片外链');
 INSERT INTO `pre_config` VALUES ('description', '外链网盘提供大容量云存储服务');
-INSERT INTO `pre_config` VALUES ('url', 'https://www.1042.net');
+INSERT INTO `pre_config` VALUES ('url', 'https://github.com/FirgtZhong/LittlePan_v2');
 INSERT INTO `pre_config` VALUES ('storage', 'local');
 INSERT INTO `pre_config` VALUES ('filepath', '');
 INSERT INTO `pre_config` VALUES ('aliyun_ak', '');
