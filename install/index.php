@@ -229,7 +229,7 @@ $dbconfig=array(
     </div>
 
     <footer class="footer">
-        <pre><center>Powered by <a href="https://github.com/FirgtZhong">FirgtZhong</a>. 源码版本：<a href="https://github.com/FirgtZhong/LittlePan_v2">LittlePan_v2-v1.0.0-RC</a></center></pre>
+        <pre><center>Powered by <a href="https://github.com/FirgtZhong">FirgtZhong</a>. 源码版本：<a href="https://github.com/FirgtZhong/LittlePan_v2">LittlePan_v2-v1.5.0-RC</a></center></pre>
     </footer>
 </div>
 </body>
