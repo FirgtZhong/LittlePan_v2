@@ -27,6 +27,7 @@ INSERT INTO `pre_config` VALUES ('green_check_porn', '0');
 INSERT INTO `pre_config` VALUES ('green_check_terrorism', '0');
 INSERT INTO `pre_config` VALUES ('green_label_porn', 'sexy,porn');
 INSERT INTO `pre_config` VALUES ('green_label_terrorism', 'bloody,explosion,outfit,logo,weapon,politics');
+INSERT INTO `pre_config` VALUES ('web_color', '#0078D7');
 INSERT INTO `pre_config` VALUES ('gg_file', '网站所有文件内容均由用户自行上传分享，本站严格遵守国家相关法律法规，尊重著作权、版权等第三方权利，如果当前文件侵犯了您的相关权利，请邮件反馈至@qq.com，我们将及时处理。');
 
 ALTER TABLE `udisk` RENAME TO `pre_file`;

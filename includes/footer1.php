@@ -3,10 +3,10 @@
         <div class="container mx-auto px-4 py-6">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-4 md:mb-0">
-                    <a class="font-semibold text-windows-blue" href="/"><?php echo htmlspecialchars($conf['title']); ?></a> &copy; <?php echo date('Y'); ?>
+                    <a class="font-semibold text-windows-color" href="/"><?php echo htmlspecialchars($conf['title']); ?></a> &copy; <?php echo date('Y'); ?>
                 </div>
                 <div class="text-sm text-gray-600">
-                    由 <a class="text-windows-blue hover:underline" href="https://github.com/FirgtZhong" target="_blank" rel="noopener noreferrer">FirgtZhong</a> 开发
+                    基于 <a class="text-windows-color hover:underline" href="https://github.com/FirgtZhong/LittlePan_v2" target="_blank" rel="noopener noreferrer">LittlePan_v2</a> 搭建
                 </div>
             </div>
         </div>
@@ -14,60 +14,12 @@
 
     <!-- JavaScript 交互逻辑 -->
     <script>
-        // 页面导航功能
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // 获取目标页面ID
-                const targetId = this.getAttribute('href').substring(1);
-                
-                // 隐藏所有页面
-                document.querySelectorAll('.page-section').forEach(section => {
-                    section.classList.remove('active');
-                });
-                
-                // 显示目标页面
-                document.getElementById(targetId).classList.add('active');
-                
-                // 更新导航链接样式
-                document.querySelectorAll('.nav-link').forEach(navLink => {
-                    navLink.classList.remove('text-windows-blue', 'font-medium');
-                    navLink.classList.add('text-windows-gray', 'hover:text-windows-dark');
-                });
-                
-                // 设置当前链接样式
-                this.classList.remove('text-windows-gray', 'hover:text-windows-dark');
-                this.classList.add('text-windows-blue', 'font-medium');
-            });
+                        // 移动端菜单切换
+        document.getElementById('mobileMenuToggle').addEventListener('click', function() {
+            const mobileNav = document.getElementById('mobileNav');
+            mobileNav.classList.toggle('hidden');
         });
-        
-        // 为卡片添加悬停动画效果
-        document.querySelectorAll('.card-hover').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.classList.add('shadow-windows-hover');
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.classList.remove('shadow-windows-hover');
-            });
-        });
-        
-        // 为按钮添加点击反馈效果
-        document.querySelectorAll('.btn-hover').forEach(btn => {
-            btn.addEventListener('mousedown', () => {
-                btn.classList.add('scale-95');
-            });
-            
-            btn.addEventListener('mouseup', () => {
-                btn.classList.remove('scale-95');
-            });
-            
-            btn.addEventListener('mouseleave', () => {
-                btn.classList.remove('scale-95');
-            });
-        });
-        
+
         
     </script>
 </body>

@@ -127,7 +127,7 @@ $mysqlversion=$DB->getColumn("select VERSION()");
 			<b>文件上传许可：</b><?php echo ini_get('upload_max_filesize'); ?>
 		</li>
 				<li class="list-group-item">
-			<b>源码版本：</b><a href="<?php echo $conf['url']; ?>"><font color="green">LittlePan_v2-v1.0.0-RC</font></a>
+			<b>源码版本：</b><a href="<?php echo $conf['url']; ?>"><font color="green">LittlePan_v2-v1.6.0-RC</font></a>
 		</li>
 	</ul>
 </div>

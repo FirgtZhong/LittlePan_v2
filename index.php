@@ -28,7 +28,7 @@ $totalSizeFormatted = size_format($totalSize ?: 0);
             <section>
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-lg font-semibold flex items-center">
-                        <i class="fa fa-bullhorn text-windows-blue mr-2"></i>最新公告
+                        <i class="fa fa-bullhorn text-windows-color mr-2"></i>最新公告
                     </h3>
                 </div>
                 
@@ -58,12 +58,12 @@ $totalSizeFormatted = size_format($totalSize ?: 0);
                         <form method="get" action="" class="m-0">
                             <input type="text" name="search" placeholder="搜索文件..." 
                                 value="<?php echo htmlspecialchars($search); ?>"
-                                class="pl-10 pr-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-windows-blue/30 focus:border-windows-blue transition-windows w-full md:w-64">
+                                class="pl-10 pr-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-windows-color/30 focus:border-windows-color transition-windows w-full md:w-64">
                             <i class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-windows-gray"></i>
                         </form>
                     </div>
                     
-                    <button class="flex items-center gap-2 px-4 py-2 bg-windows-blue text-white rounded-lg hover:bg-windows-blue/90 transition-windows btn-hover">
+                    <button class="flex items-center gap-2 px-4 py-2 bg-windows-color text-white rounded-lg hover:bg-windows-color/90 transition-windows btn-hover">
                         <a href="/upload.php">
                         <i class="fa fa-upload"></i>
                         <span>上传文件</span>
@@ -111,7 +111,7 @@ $totalSizeFormatted = size_format($totalSize ?: 0);
                                             echo '<tr class="border-b border-gray-100 hover:bg-gray-50 transition-windows">
                                                 <td class="px-6 py-4">
                                                     <div class="flex items-center gap-3">
-                                                        <div class="file-icon bg-blue-100 text-blue-600">
+                                                        <div class="file-icon text-black-60">
                                                             <i class="fa ' . type_to_icon($res['type']) . ' fa-fw"></i>
                                                         </div>
                                                         <span>' . htmlspecialchars($res['name']) . '</span>
@@ -122,7 +122,7 @@ $totalSizeFormatted = size_format($totalSize ?: 0);
                                                 <td class="px-6 py-4 text-windows-gray">' . htmlspecialchars($res['addtime']) . '</td>
                                                 <td class="px-6 py-4">
                                                     <div class="flex gap-2">
-                                                        <button class="p-1.5 text-windows-gray hover:text-windows-blue hover:bg-blue-50 rounded transition-windows" title="下载">
+                                                        <button class="p-1.5 text-windows-gray hover:text-blue-500 hover:bg-blue-50 rounded transition-windows" title="下载">
                                                             <a href="' . htmlspecialchars($fileurl) . '"><i class="fa fa-download"></i></a>
                                                         </button> 
                                                         <button class="p-1.5 text-windows-gray hover:text-green-500 hover:bg-green-50 rounded transition-windows" title="详细">

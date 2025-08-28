@@ -40,6 +40,10 @@ if($mod=='site'){
 	  <div class="col-sm-10"><textarea class="form-control" name="gg_file" rows="3" placeholder="不填写则不显示"><?php echo htmlspecialchars($conf['gg_file'])?></textarea></div>
 	</div><br/>
 	<div class="form-group">
+	  <label class="col-sm-2 control-label">网站主题颜色</label>
+	  <div class="col-sm-10"><textarea class="form-control" name="web_color" rows="3" placeholder="请在此写入16进制颜色代码(RGB)"><?php echo htmlspecialchars($conf['web_color'])?></textarea></div>
+	</div><br/>
+	<div class="form-group">
 	  <label class="col-sm-2 control-label">统计代码</label>
 	  <div class="col-sm-10"><textarea class="form-control" name="tongji" rows="3" placeholder="不填写则不显示统计代码"><?php echo htmlspecialchars($conf['tongji'])?></textarea></div>
 	</div><br/>

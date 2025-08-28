@@ -26,7 +26,7 @@ $_SESSION['csrf_token'] = $csrf_token;
                 <div class="lg:col-span-2">
                     <div class="bg-white rounded-lg shadow-windows p-6 transition-windows hover:shadow-lg">
                         <!-- 进度条容器 -->
-                        <div id="progressBar" class="w-100 h-32 mb-6 h-1.5 bg-gray-200 rounded-lg overflow-hidden">
+                        <div id="progressBar" class="w-100 h-16 mb-6 h-1.5 bg-gray-200 rounded-lg overflow-hidden">
                             <!-- 进度条将由JS动态生成 -->
                         </div>
                         
@@ -35,20 +35,20 @@ $_SESSION['csrf_token'] = $csrf_token;
                         <input type="hidden" id="csrf_token" name="csrf_token" value="<?php echo $csrf_token ?>">
                         
                         <!-- 上传区域 -->
-                        <div id="upload_block" class="mb-6 border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-windows-blue transition-windows">
+                        <div id="upload_block" class="mb-6 border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-windows-color transition-windows">
                             <i class="fa fa-cloud-upload text-5xl text-gray-400 mb-3"></i>
                             <p class="text-gray-600">点击或拖拽文件到此处上传</p>
                         </div>
 
                         <div id="upload_frame">
-                            <button id="uploadFile" class="w-full bg-windows-blue hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-md flex items-center justify-center transition-windows mb-4">
+                            <button id="uploadFile" class="w-full bg-windows-color hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-md flex items-center justify-center transition-windows mb-4">
                                 <i class="fa fa-upload mr-2"></i> 立即上传
                             </button>
 
                             <!-- 文件在首页显示复选框 -->
                             <div class="form-group mb-4">
                                 <label class="inline-flex items-center">
-                                    <input type="checkbox" id="show" checked class="form-checkbox h-5 w-5 text-windows-blue rounded border-gray-300">
+                                    <input type="checkbox" id="show" checked class="form-checkbox h-5 w-5 text-windows-color rounded border-gray-300">
                                     <span class="ml-2 text-gray-700">在首页文件列表显示</span>
                                 </label>
                             </div>
@@ -56,13 +56,13 @@ $_SESSION['csrf_token'] = $csrf_token;
                             <!-- 文件加密复选框和密码输入框 -->
                             <div class="form-group mb-4">
                                 <label class="inline-flex items-center">
-                                    <input type="checkbox" id="ispwd" class="form-checkbox h-5 w-5 text-windows-blue rounded border-gray-300">
+                                    <input type="checkbox" id="ispwd" class="form-checkbox h-5 w-5 text-windows-color rounded border-gray-300">
                                     <span class="ml-2 text-gray-700">设定密码</span>
                                 </label>
                             </div>
 
                             <div class="form-group" id="pwd_frame" style="display: none;">
-                                <input type="text" class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-windows-blue focus:border-transparent transition-windows" 
+                                <input type="text" class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-windows-color focus:border-transparent transition-windows" 
                                        id="pwd" placeholder="请输入密码" autocomplete="off">
                                 <small class="text-gray-500 text-sm mt-1 block">密码只能为字母或数字</small>
                             </div>
@@ -110,28 +110,12 @@ $_SESSION['csrf_token'] = $csrf_token;
         </div>
     </main>
 
-    <!-- 页脚 -->
-    <footer class="bg-white border-t border-gray-200 mt-12">
-        <div class="container mx-auto px-4 py-6">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-4 md:mb-0">
-                    <a class="font-semibold text-windows-blue" href="/"><?php echo htmlspecialchars($conf['title']); ?></a> &copy; <?php echo date('Y'); ?>
-                </div>
-                <div class="text-sm text-gray-600">
-                    由 <a class="text-windows-blue hover:underline" href="https://github.com/FirgtZhong" target="_blank" rel="noopener noreferrer">FirgtZhong</a> 开发
-                </div>
-            </div>
-        </div>
-    </footer>
 
     <!-- JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <?php include("./includes/footer1.php"); ?>
     <script>
-        // 移动端菜单切换
-        document.getElementById('mobileMenuToggle').addEventListener('click', function() {
-            const mobileNav = document.getElementById('mobileNav');
-            mobileNav.classList.toggle('hidden');
-        });
+
 
         // 密码框显示/隐藏控制
         document.getElementById('ispwd').addEventListener('change', function() {

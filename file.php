@@ -60,7 +60,7 @@ include("./includes/header1.php")
                 if (pwd) window.location.href = "./file.php?hash=<?php echo $row['hash'] ?>&pwd=" + pwd;
             </script>
             <div class="text-center py-10">
-                请刷新页面，或[ <a href="javascript:history.back();" class="text-windows-blue hover:underline">返回上一页</a> ]
+                请刷新页面，或[ <a href="javascript:history.back();" class="text-windows-color hover:underline">返回上一页</a> ]
             </div>
         <?php exit; } ?>
 
@@ -82,7 +82,7 @@ include("./includes/header1.php")
                                 ? '<video src="' . $viewurl . '" controls class="video-player w-full max-w-4xl mx-auto rounded shadow-sm"></video>'
                                 : '<p class="text-center py-10 text-windows-gray">视频文件需审核通过后才能在线播放和下载，请等待审核通过！</p>';
                         } else {
-                            echo '<a href="' . $downurl . '" class="bg-windows-blue hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-md inline-flex items-center btn-hover">
+                            echo '<a href="' . $downurl . '" class="bg-windows-color hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-md inline-flex items-center btn-hover">
                                     <i class="fa fa-download mr-2"></i> 下载文件
                                   </a>';
                         }
@@ -96,7 +96,7 @@ include("./includes/header1.php")
                     <div class="border-b border-gray-200">
                         <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="fileTab" role="tablist">
                             <li class="mr-2" role="presentation">
-                                <button class="inline-block p-4 border-b-2 border-windows-blue text-windows-blue rounded-t-lg" 
+                                <button class="inline-block p-4 border-b-2 border-windows-color text-windows-color rounded-t-lg" 
                                         id="link-tab" data-tabs-target="#link" type="button" role="tab" 
                                         aria-selected="true">
                                     <i class="fa fa-link mr-1"></i> 文件外链
@@ -129,9 +129,9 @@ include("./includes/header1.php")
                                 <div class="flex flex-col sm:flex-row sm:items-center gap-3">
                                     <label for="link1" class="text-windows-dark font-medium w-full sm:w-24">查看链接：</label>
                                     <div class="flex-1 flex">
-                                        <input type="text" class="flex-1 border border-gray-300 rounded-l-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-windows-blue focus:border-transparent" 
+                                        <input type="text" class="flex-1 border border-gray-300 rounded-l-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-windows-color focus:border-transparent" 
                                                id="link1" readonly value="<?php echo $viewurl_all ?>">
-                                        <button class="bg-windows-blue hover:bg-blue-700 text-white px-4 py-2 rounded-r-md btn-hover" 
+                                        <button class="bg-windows-color hover:bg-blue-500 text-white px-4 py-2 rounded-r-md btn-hover" 
                                                 onclick="copyToClipboard('<?php echo $viewurl_all ?>')">
                                             复制
                                         </button>
@@ -140,9 +140,9 @@ include("./includes/header1.php")
                                 <div class="flex flex-col sm:flex-row sm:items-center gap-3">
                                     <label for="link2" class="text-windows-dark font-medium w-full sm:w-24">下载链接：</label>
                                     <div class="flex-1 flex">
-                                        <input type="text" class="flex-1 border border-gray-300 rounded-l-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-windows-blue focus:border-transparent" 
+                                        <input type="text" class="flex-1 border border-gray-300 rounded-l-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-windows-color focus:border-transparent" 
                                                id="link2" readonly value="<?php echo $downurl_all ?>">
-                                        <button class="bg-windows-blue hover:bg-blue-700 text-white px-4 py-2 rounded-r-md btn-hover" 
+                                        <button class="bg-windows-color hover:bg-blue-500 text-white px-4 py-2 rounded-r-md btn-hover" 
                                                 onclick="copyToClipboard('<?php echo $downurl_all ?>')">
                                             复制
                                         </button>
@@ -207,7 +207,7 @@ include("./includes/header1.php")
                 <div class="bg-white rounded-lg shadow-windows p-6 card-hover">
                     <div class="border-b border-gray-200 pb-3 mb-4">
                         <h3 class="font-semibold text-lg flex items-center">
-                            <i class="fa fa-qrcode text-windows-blue mr-2"></i> 当前页面二维码
+                            <i class="fa fa-qrcode text-windows-color mr-2"></i> 当前页面二维码
                         </h3>
                     </div>
                     <div class="text-center">
@@ -219,18 +219,7 @@ include("./includes/header1.php")
         </div>
     </main>
 
-    <footer class="bg-white border-t border-gray-200 mt-12">
-        <div class="container mx-auto px-4 py-6">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-4 md:mb-0">
-                    <a class="fw-semibold text-windows-blue" href="/" target="_blank"><?php echo htmlspecialchars($conf['title']); ?></a> &copy; <span id="currentYear"><?php echo date('Y'); ?></span>
-                </div>
-                <div class="text-sm text-gray-600">
-                    Crafted with <i class="fa fa-heart text-danger"></i> by <a class="text-windows-blue hover:underline" href="https://github.com/FirgtZhong" target="_blank">FirgtZhong</a>.
-                </div>
-            </div>
-        </div>
-    </footer>
+    <?php include("./includes/footer1.php")?>
 
     <script>
         // 移动端菜单切换
@@ -272,7 +261,7 @@ include("./includes/header1.php")
             button.addEventListener('click', () => {
                 // 移除所有标签页的活动状态
                 document.querySelectorAll('#fileTab button').forEach(btn => {
-                    btn.classList.remove('border-windows-blue', 'text-windows-blue');
+                    btn.classList.remove('border-windows-color', 'text-windows-color');
                     btn.classList.add('border-transparent', 'hover:text-gray-600', 'hover:border-gray-300');
                     btn.setAttribute('aria-selected', 'false');
                 });
@@ -285,7 +274,7 @@ include("./includes/header1.php")
                 
                 // 激活当前标签页
                 button.classList.remove('border-transparent', 'hover:text-gray-600', 'hover:border-gray-300');
-                button.classList.add('border-windows-blue', 'text-windows-blue');
+                button.classList.add('border-windows-color', 'text-windows-color');
                 button.setAttribute('aria-selected', 'true');
                 
                 // 显示当前标签页内容

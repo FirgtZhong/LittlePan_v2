@@ -18,6 +18,7 @@ include SYSTEM_ROOT . 'header1.php';
                             <th style="width: 5%;" class="px-6 py-4 text-left text-sm font-semibold text-windows-dark">#</th>
                             <th style="width: 20%;" class="px-6 py-4 text-left text-sm font-semibold text-windows-dark">操作</th>
                             <th class="px-6 py-4 text-left text-sm font-semibold text-windows-dark">文件名</th>
+                            
                             <th class="px-6 py-4 text-left text-sm font-semibold text-windows-dark">文件大小</th>
                             <th class="px-6 py-4 text-left text-sm font-semibold text-windows-dark">文件格式</th>
                             <th class="px-6 py-4 text-left text-sm font-semibold text-windows-dark">上传时间</th>
@@ -42,7 +43,7 @@ include SYSTEM_ROOT . 'header1.php';
                             echo '<td>' . $i++ . '</td>';
                             echo '                                                <td class="px-6 py-4">
                                                     <div class="flex gap-2">
-                                                        <button class="p-1.5 text-windows-gray hover:text-windows-blue hover:bg-blue-50 rounded transition-windows" title="下载">
+                                                        <button class="p-1.5 text-windows-gray hover:text-blue-50 hover:bg-blue-50 rounded transition-windows" title="下载">
                                                             <a href="' . htmlspecialchars($fileurl) . '"><i class="fa fa-download"></i></a>
                                                         </button> 
                                                         <button class="p-1.5 text-windows-gray hover:text-green-500 hover:bg-green-50 rounded transition-windows" title="详细">

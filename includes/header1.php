@@ -21,7 +21,7 @@
             theme: {
                 extend: {
                     colors: {
-                        'windows-blue': '#0078D7',
+                        'windows-color': '<?php echo $conf["web_color"] ?>',
                         'windows-light': '#F3F4F6',
                         'windows-dark': '#1F2937',
                         'windows-gray': '#6B7280',
@@ -91,7 +91,7 @@
         <div class="container mx-auto px-4 py-3 flex items-center justify-between">
             <!-- Logo和标题 -->
             <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-lg bg-windows-blue flex items-center justify-center text-white">
+                <div class="w-10 h-10 rounded-lg bg-windows-color flex items-center justify-center text-white">
                     <i class="fa fa-cloud text-xl"></i>
                 </div>
                 <h1 class="text-xl font-semibold"><?php echo isset($title) ? $title : '默认标题'; ?></h1>
@@ -104,23 +104,23 @@
             
             <!-- 导航菜单 -->
             <nav id="mainNav" class="hidden md:flex items-center space-x-1 md:space-x-3">
-                <a href="/" class="px-3 py-2 rounded hover:bg-windows-hover text-windows-dark hover:text-windows-blue transition-windows" 
+                <a href="/" class="px-3 py-2 rounded hover:bg-windows-hover text-windows-dark hover:text-windows-color transition-windows" 
                    title="首页">
                     <i class="fa fa-home mr-2"></i>首页
                 </a>
-                <a href="/upload.php" class="px-3 py-2 rounded hover:bg-windows-hover text-windows-dark hover:text-windows-blue transition-windows" 
+                <a href="/upload.php" class="px-3 py-2 rounded hover:bg-windows-hover text-windows-dark hover:text-windows-color transition-windows" 
                    title="上传">
                     <i class="fa fa-upload mr-2"></i>上传
                 </a>
-                <a href="/myfile.php" class="px-3 py-2 rounded hover:bg-windows-hover text-windows-dark hover:text-windows-blue transition-windows" 
+                <a href="/myfile.php" class="px-3 py-2 rounded hover:bg-windows-hover text-windows-dark hover:text-windows-color transition-windows" 
                    title="管理">
                     <i class="fa fa-folder-open mr-2"></i>管理
                 </a>
-                <a href="https://blog.firgt.cn/2025/07/23/firgt-cloud-api-doc/" class="px-3 py-2 rounded hover:bg-windows-hover text-windows-dark hover:text-windows-blue transition-windows" 
-                   title="API文档" target="_blank" rel="noopener noreferrer">
+                <a href="/apidoc.php" class="px-3 py-2 rounded hover:bg-windows-hover text-windows-dark hover:text-windows-color transition-windows" 
+                   title="API文档">
                     <i class="fa fa-code mr-2"></i>API文档
                 </a>
-                <a href="/about.php" class="px-3 py-2 rounded hover:bg-windows-hover text-windows-dark hover:text-windows-blue transition-windows" 
+                <a href="/about.php" class="px-3 py-2 rounded hover:bg-windows-hover text-windows-dark hover:text-windows-color transition-windows" 
                    title="关于">
                     <i class="fa fa-info mr-2"></i>关于
                 </a>
@@ -130,20 +130,20 @@
         <!-- 移动端导航菜单 -->
         <div id="mobileNav" class="md:hidden hidden bg-white border-t border-gray-200">
             <div class="container mx-auto px-4 py-2 flex flex-col space-y-1">
-                <a href="/" class="px-3 py-2 rounded hover:bg-windows-hover text-windows-dark hover:text-windows-blue transition-windows">
+                <a href="/" class="px-3 py-2 rounded hover:bg-windows-hover text-windows-dark hover:text-windows-color transition-windows">
                     <i class="fa fa-home mr-2"></i>首页
                 </a>
-                <a href="/upload.php" class="px-3 py-2 rounded hover:bg-windows-hover text-windows-dark hover:text-windows-blue transition-windows">
+                <a href="/upload.php" class="px-3 py-2 rounded hover:bg-windows-hover text-windows-dark hover:text-windows-color transition-windows">
                     <i class="fa fa-upload mr-2"></i>上传
                 </a>
-                <a href="/myfile.php" class="px-3 py-2 rounded hover:bg-windows-hover text-windows-dark hover:text-windows-blue transition-windows">
+                <a href="/myfile.php" class="px-3 py-2 rounded hover:bg-windows-hover text-windows-dark hover:text-windows-color transition-windows">
                     <i class="fa fa-folder-open mr-2"></i>管理
                 </a>
-                <a href="https://blog.firgt.cn/2025/07/23/firgt-cloud-api-doc/" class="px-3 py-2 rounded hover:bg-windows-hover text-windows-dark hover:text-windows-blue transition-windows" 
+                <a href="/apidoc.php" class="px-3 py-2 rounded hover:bg-windows-hover text-windows-dark hover:text-windows-color transition-windows" 
                    target="_blank" rel="noopener noreferrer">
                     <i class="fa fa-code mr-2"></i>API文档
                 </a>
-                <a href="/about.php" class="px-3 py-2 rounded hover:bg-windows-hover text-windows-dark hover:text-windows-blue transition-windows">
+                <a href="/about.php" class="px-3 py-2 rounded hover:bg-windows-hover text-windows-dark hover:text-windows-color transition-windows">
                     <i class="fa fa-info mr-2"></i>关于
                 </a>
             </div>
