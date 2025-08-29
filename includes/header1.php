@@ -55,13 +55,32 @@
     </style>
     
     <style>
-        /* 基础样式 */
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-color: #F9FAFB;
-            color: #1F2937;
-        }
-        
+/* 基础样式 */
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: #F9FAFB; /* 原始背景色 */
+    color: #1F2937;
+    position: relative; /* 关键：让伪元素相对于body定位 */
+    /* 可选：添加背景图 */
+    background-image: url('<?php echo htmlspecialchars($conf['bg'])?>');
+    /* background-size: cover; */
+    /* background-attachment: fixed; */
+}
+
+/* 添加蒙版层（伪元素） */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* 蒙版颜色：rgba(颜色, 透明度) */
+    background-color: rgba(<?php echo htmlspecialchars($conf['red-rgba'])?>, <?php echo htmlspecialchars($conf['green-rgba'])?>, <?php echo htmlspecialchars($conf['blue-rgba'])?>, <?php echo htmlspecialchars($conf['alpha-rgba'])?>); 
+    z-index: -1; /* 确保蒙版在内容下方 */
+    pointer-events: none; /* 不影响鼠标交互 */
+}
+
         /* 滚动条样式 */
         ::-webkit-scrollbar {
             width: 8px;
@@ -91,8 +110,8 @@
         <div class="container mx-auto px-4 py-3 flex items-center justify-between">
             <!-- Logo和标题 -->
             <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-lg bg-windows-color flex items-center justify-center text-white">
-                    <i class="fa fa-cloud text-xl"></i>
+                <div class="w-10 h-10 rounded-lg flex items-center justify-center text-white">
+                    <img src="<?php echo htmlspecialchars($conf['icon'])?>" width="100" height="100">
                 </div>
                 <h1 class="text-xl font-semibold"><?php echo isset($title) ? $title : '默认标题'; ?></h1>
             </div>

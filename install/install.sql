@@ -29,6 +29,12 @@ INSERT INTO `pre_config` VALUES ('green_check_terrorism', '0');
 INSERT INTO `pre_config` VALUES ('green_label_porn', 'sexy,porn');
 INSERT INTO `pre_config` VALUES ('green_label_terrorism', 'bloody,explosion,outfit,logo,weapon,politics');
 INSERT INTO `pre_config` VALUES ('web_color', '#0078D7');
+INSERT INTO `pre_config` VALUES ('red-rgba', '255');
+INSERT INTO `pre_config` VALUES ('green-rgba', '255');
+INSERT INTO `pre_config` VALUES ('blue-rgba', '255');
+INSERT INTO `pre_config` VALUES ('alpha-rgba', '0.7');
+INSERT INTO `pre_config` VALUES ('bg', '//dailybing.com/api/v1');
+INSERT INTO `pre_config` VALUES ('icon', '/favicon.ico');
 INSERT INTO `pre_config` VALUES ('gg_file', '网站所有文件内容均由用户自行上传分享，本站严格遵守国家相关法律法规，尊重著作权、版权等第三方权利，如果当前文件侵犯了您的相关权利，请邮件反馈至@qq.com，我们将及时处理。');
 
 DROP TABLE IF EXISTS `pre_file`;

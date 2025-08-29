@@ -44,6 +44,21 @@ if($mod=='site'){
 	  <div class="col-sm-10"><textarea class="form-control" name="web_color" rows="3" placeholder="请在此写入16进制颜色代码(RGB)"><?php echo htmlspecialchars($conf['web_color'])?></textarea></div>
 	</div><br/>
 	<div class="form-group">
+	  <label class="col-sm-2 control-label">网站左上角图标</label>
+	  <div class="col-sm-10"><textarea class="form-control" name="icon" rows="3" placeholder="请在此写入图片链接URL"><?php echo htmlspecialchars($conf['icon'])?></textarea></div>
+	</div><br/>
+	<div class="form-group">
+	  <label class="col-sm-2 control-label">网站背景图片</label>
+	  <div class="col-sm-10"><textarea class="form-control" name="bg" rows="3" placeholder="请在此写入图片链接URL"><?php echo htmlspecialchars($conf['bg'])?></textarea></div>
+	</div><br/>
+	<div class="form-group">
+	  <label class="col-sm-2 control-label">背景蒙版设定</label>
+	  <div class="col-sm-2"><textarea class="form-control" name="red-rgba" rows="2" placeholder="0~255的整数(Red 红)"><?php echo htmlspecialchars($conf['red-rgba'])?></textarea></div>
+	  <div class="col-sm-2"><textarea class="form-control" name="green-rgba" rows="2" placeholder="0~255的整数(Green 绿)"><?php echo htmlspecialchars($conf['green-rgba'])?></textarea></div>
+	  <div class="col-sm-2"><textarea class="form-control" name="blue-rgba" rows="2" placeholder="0~255的整数(Blue 蓝)"><?php echo htmlspecialchars($conf['blue-rgba'])?></textarea></div>
+	  <div class="col-sm-2"><textarea class="form-control" name="alpha-rgba" rows="2" placeholder="0~1之间的数值(Alpha 透明度)"><?php echo htmlspecialchars($conf['alpha-rgba'])?></textarea></div>
+	</div><br/>
+	<div class="form-group">
 	  <label class="col-sm-2 control-label">统计代码</label>
 	  <div class="col-sm-10"><textarea class="form-control" name="tongji" rows="3" placeholder="不填写则不显示统计代码"><?php echo htmlspecialchars($conf['tongji'])?></textarea></div>
 	</div><br/>

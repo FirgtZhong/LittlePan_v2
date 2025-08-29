@@ -69,14 +69,14 @@ if($action=='install'){
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
     <meta content="yes" name="apple-mobile-web-app-capable">
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
-    <title>1042外链网盘-安装程序 FOR SAE</title>
+    <title>LittlePan外链网盘-安装程序 FOR SAE</title>
     <link href="//cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="container"><br>
     <div class="row">
         <div class="col-xs-12">
-            <pre><h4>1042外链网盘 - 安装程序 FOR SAE</h4></pre>
+            <pre><h4>LittlePan外链网盘 - 安装程序 FOR SAE</h4></pre>
         </div>
         <div class="col-xs-12">
             <div class="panel panel-warning">
