@@ -38,6 +38,13 @@ exit();
 $CACHE=new \lib\Cache();
 $conf=$CACHE->pre_fetch();
 
+// ========== 新增：WebDAV 配置项默认值（防止配置缺失报错） ==========
+// 若配置中无WebDAV相关项，设置为空字符串默认值
+$conf['webdav_uri'] = isset($conf['webdav_uri']) ? $conf['webdav_uri'] : '';
+$conf['webdav_user'] = isset($conf['webdav_user']) ? $conf['webdav_user'] : '';
+$conf['webdav_pwd'] = isset($conf['webdav_pwd']) ? $conf['webdav_pwd'] : '';
+// ================================================================
+
 if (!isset($conf['api_referer'])) {
     $conf['api_referer'] = ''; // 默认不限制来源，生产环境建议设置为具体域名
 }
@@ -74,6 +81,27 @@ switch($conf['storage']){
 	case 'qcloud':$stor=new \lib\Storage\Qcloud($conf['qcloud_id'], $conf['qcloud_key'], $conf['qcloud_region'], $conf['qcloud_bucket']);break;
 	case 'obs':$stor=new \lib\Storage\Obs($conf['obs_ak'], $conf['obs_sk'], $conf['obs_endpoint'], $conf['obs_bucket']);break;
 	case 'upyun':$stor=new \lib\Storage\Upyun($conf['upyun_user'], $conf['upyun_pwd'], $conf['upyun_name']);break;
+    case 'webdav':
+		// ========== 新增：WebDAV 配置校验与容错 ==========
+        // 检查WebDAV核心配置是否为空，为空则抛出错误并切回本地存储
+        if(empty($conf['webdav_uri'])){
+            sysmsg('WebDAV配置错误：未填写服务地址，已自动切回本地存储');
+            $stor=new \lib\Storage\Local($conf['filepath']);
+        }else{
+            try {
+                $stor = new \lib\Storage\WebDav(
+                    $conf['webdav_uri'],
+                    $conf['webdav_user'],
+                    $conf['webdav_pwd']
+                );
+            } catch (Exception $e) {
+                // WebDAV初始化失败时，切回本地存储并提示错误
+                sysmsg('WebDAV初始化失败：'.$e->getMessage().'，已自动切回本地存储');
+                $stor=new \lib\Storage\Local($conf['filepath']);
+            }
+        }
+		// =================================================
+        break;
 	default:$stor=new \lib\Storage\Local($conf['filepath']);break;
 }
 

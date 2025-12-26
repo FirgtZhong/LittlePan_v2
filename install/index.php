@@ -12,7 +12,7 @@ if(defined('SAE_ACCESSKEY')){
 $step=isset($_GET['step'])?$_GET['step']:1;
 $action=isset($_POST['action'])?$_POST['action']:null;
 if(file_exists('install.lock')){
-    exit('你已经成功安装，如需重新安装，请手动删除install目录下install.lock文件！');
+    exit('如需安装，请手动删除install目录下install.lock文件！');
 }
 
 
@@ -204,7 +204,7 @@ $dbconfig=array(
                         $check[1]='<span class="badge badge-danger">不支持</span>';
                         $install=false;
                     }
-                    if(version_compare(PHP_VERSION,'5.4.0','<')){
+                    if(version_compare(PHP_VERSION,'7.0.0','<')){
                         $check[3]='<span class="badge badge-danger">不支持</span>';
 						$install=false;
                     }else{
@@ -216,7 +216,7 @@ $dbconfig=array(
                         <li class="list-group-item">检测安装是否锁定 <?php echo $check[2];?></li>
                         <li class="list-group-item">PDO_MYSQL组件 <?php echo $check[0];?></li>
                         <li class="list-group-item">主目录写入权限 <?php echo $check[1];?></li>
-                        <li class="list-group-item">PHP版本>=5.4 <?php echo $check[3];?></li>
+                        <li class="list-group-item">PHP版本>=7.0 <?php echo $check[3];?></li>
                         <li class="list-group-item">成功安装后安装文件就会锁定，如需重新安装，请手动删除install目录下install.lock配置文件！</li>
                         <?php
                         if($install) echo'<a href="?step=2" class="btn list-group-item">检测通过，下一步</a>';
@@ -229,7 +229,7 @@ $dbconfig=array(
     </div>
 
     <footer class="footer">
-        <pre><center>Powered by <a href="https://github.com/FirgtZhong">FirgtZhong</a>. 源码版本：<a href="https://github.com/FirgtZhong/LittlePan_v2">LittlePan_v2-v1.7.0-RC</a></center></pre>
+        <pre><center>Powered by <a href="https://github.com/FirgtZhong">FirgtZhong</a>. 源码版本：<a href="https://github.com/FirgtZhong/LittlePan_v2">LittlePan_v2-v1.8.0-RC</a></center></pre>
     </footer>
 </div>
 </body>

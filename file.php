@@ -222,11 +222,6 @@ include("./includes/header1.php")
     <?php include("./includes/footer1.php")?>
 
     <script>
-        // 移动端菜单切换
-        document.getElementById('mobileMenuToggle').addEventListener('click', function() {
-            const mobileNav = document.getElementById('mobileNav');
-            mobileNav.classList.toggle('hidden');
-        });
 
         // 确保外部链接在新窗口打开
         document.querySelectorAll('a[href^="http"]:not([href*="' + window.location.hostname + '"])').forEach(link => {

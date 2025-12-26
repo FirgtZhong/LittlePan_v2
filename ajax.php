@@ -55,8 +55,14 @@ case 'upload':
 		$result = ['code'=>0, 'msg'=>'本站已存在该文件', 'exists'=>1, 'hash'=>$hash, 'name'=>$name, 'size'=>$size, 'type'=>$ext, 'id'=>$row['id']];
 		exit(json_encode($result));
 	}
+	// ========== 新增：WebDAV 上传错误细化 ==========
 	$result = $stor->upload($hash, $_FILES['file']['tmp_name']);
-	if(!$result)exit('{"code":-1,"msg":"文件上传失败","error":"stor"}');
+	if(!$result){
+		// 如果是 WebDAV 存储，获取适配器的具体错误信息
+		$errorMsg = $conf['storage'] == 'webdav' ? $stor->errmsg() : '存储服务异常';
+		exit('{"code":-1,"msg":"文件上传失败:'.$errorMsg.'","error":"stor"}');
+	}
+	// ==============================================
 	$sds = $DB->exec("INSERT INTO `pre_file` (`name`,`type`,`size`,`hash`,`addtime`,`ip`,`hide`,`pwd`) values (:name,:type,:size,:hash,NOW(),:ip,:hide,:pwd)", [':name'=>$name, ':type'=>$ext, ':size'=>$size, ':hash'=>$hash, ':ip'=>$clientip, ':hide'=>$hide, ':pwd'=>$pwd]);
 	if(!$sds)exit('{"code":-1,"msg":"上传失败'.$DB->error().'","error":"database"}');
 	$id = $DB->lastInsertId();
@@ -87,7 +93,13 @@ case 'deleteFile':
 	if(!in_array($row['id'], $_SESSION['fileids']))exit('{"code":-1,"msg":"无权限"}');
 	if($row['block']==1)exit('{"code":-1,"msg":"文件已被冻结，无法删除"}');
 	if(strtotime($row['addtime'])<strtotime("-7 days"))exit('{"code":-1,"msg":"无法删除7天前的文件"}');
+	// ========== 新增：WebDAV 删除错误细化 ==========
 	$result = $stor->delete($row['hash']);
+	// 如果是 WebDAV 存储且删除失败，返回具体错误
+	if($conf['storage'] == 'webdav' && !$result){
+		exit('{"code":-1,"msg":"WebDAV删除失败:'.$stor->errmsg().'","error":"stor"}');
+	}
+	// ==============================================
 	$sql = "DELETE FROM pre_file WHERE id=:id";
 	if($DB->exec($sql, [':id'=>$row['id']]))exit('{"code":0,"msg":"删除文件成功！"}');
 	else exit('{"code":-1,"msg":"删除文件失败['.$DB->error().']"}');
@@ -95,3 +107,4 @@ default:
 	exit('{"code":-4,"msg":"No Act"}');
 break;
 }
+?>

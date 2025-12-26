@@ -38,6 +38,8 @@ if($row['pwd']!=null && $row['pwd']!=$pwd){ ?>
     exit;
 }
 
+// ========== 新增：WebDAV 存在性检查的错误细化 ==========
+// 检查文件是否存在，若为WebDAV存储且不存在，返回具体错误
 if($stor->exists($hash))
 {
     $seconds_to_cache = 3600*24*7;
@@ -52,9 +54,22 @@ if($stor->exists($hash))
     header("Cache-Control: max-age=$seconds_to_cache");
     
     $DB->exec("UPDATE `pre_file` SET `lasttime`=NOW(),`count`=`count`+1 WHERE `id`='{$row['id']}'");
-    
-    $stor->downfile($hash, $row['size']);
+
+    // ========== 新增：WebDAV 下载失败的异常处理 ==========
+    // 执行下载并捕获失败状态
+    $downloadResult = $stor->downfile($hash, $row['size']);
+    // 若下载失败且为WebDAV存储，返回具体错误信息
+    if(!$downloadResult && $conf['storage'] == 'webdav'){
+        exit('WebDAV文件下载失败：'.$stor->errmsg());
+    }
+    // ====================================================
 }
 else{
-    exit('File Not Found');
+    // 若为WebDAV存储且文件不存在，返回具体错误
+    if($conf['storage'] == 'webdav'){
+        exit('WebDAV文件不存在：'.$stor->errmsg());
+    }else{
+        exit('File Not Found');
+    }
 }
+?>
