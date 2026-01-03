@@ -3,7 +3,7 @@
   <img src="https://cloud.firgt.cn/favicon.ico" alt="LittlePan_v2 Logo" width="128" height="128">
   <br>
   <p>🚀 轻量级多存储后端外链网盘管理系统</p>
-  <p>项目网站：[https://littlepan.netlify.app/](https://littlepan.netlify.app/)</p>
+  <p>项目网站：https://littlepan.netlify.app/</p>
   <div>
     <a href="https://github.com/FirgtZhong/LittlePan_v2/releases">
       <img src="https://img.shields.io/github/release/FirgtZhong/LittlePan_v2.svg" alt="Release">
