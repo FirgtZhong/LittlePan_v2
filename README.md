@@ -3,6 +3,7 @@
   <img src="https://cloud.firgt.cn/favicon.ico" alt="LittlePan_v2 Logo" width="128" height="128">
   <br>
   <p>🚀 轻量级多存储后端外链网盘管理系统</p>
+  <p>项目网站：[https://littlepan.netlify.app/](https://littlepan.netlify.app/)</p>
   <div>
     <a href="https://github.com/FirgtZhong/LittlePan_v2/releases">
       <img src="https://img.shields.io/github/release/FirgtZhong/LittlePan_v2.svg" alt="Release">
@@ -43,8 +44,7 @@ LittlePan_v2 是一款轻量级、易部署的外链网盘管理系统，支持�
 - 测试账号/密码：1234 / 1234
 
 ## 📖 文档与支持
-- v1 版本使用文档（仅供参考）：[https://littlepan.netlify.app/](https://littlepan.netlify.app/)
-- API 文档：[https://blog.firgt.cn/2025/07/23/firgt-cloud-api-doc/](https://blog.firgt.cn/2025/07/23/firgt-cloud-api-doc/)
+- 使用文档（仅供参考）：[https://littlepan.netlify.app/docs](https://littlepan.netlify.app/docs)
 - 问题反馈：[Issues](https://github.com/FirgtZhong/LittlePan_v2/issues)
 
 ## 📄 许可证
