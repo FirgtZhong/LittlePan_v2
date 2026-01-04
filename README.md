@@ -4,6 +4,7 @@
   <br>
   <p>🚀 轻量级多存储后端外链网盘管理系统</p>
   <p>项目网站：https://littlepan.netlify.app/</p>
+  <p>二次开发指南：https://littlepan.netlify.app/docs/copyright/</p>
   <div>
     <a href="https://github.com/FirgtZhong/LittlePan_v2/releases">
       <img src="https://img.shields.io/github/release/FirgtZhong/LittlePan_v2.svg" alt="Release">
@@ -50,12 +51,16 @@ LittlePan_v2 是一款轻量级、易部署的外链网盘管理系统，支持�
 ## 📄 许可证
 本项目基于 Apache License 2.0 开源协议发布，详情请查看 [LICENSE](LICENSE) 文件。
 
+## 关于二次开发及版权的问题（请各位开发者注意）
+请查看[二次开发指南](https://littlepan.netlify.app/docs/copyright/)
+
 ## 💡 免责声明
 - 本项目仅用于个人学习和非商业用途
 - 使用本项目需遵守各云服务商的使用条款及相关法律法规
 - 开发者不对因使用本项目产生的任何损失承担责任
 
 <div align="center">
+  <p>如果你觉得好的话，欢迎star或者反馈意见！</p>
   <p>❤️ 感谢所有贡献者和使用者的支持</p>
   <p>给点米吧（穷得家里揭不开锅了😭）<br><img src="https://firgt.eu.org/images/wechatpay.png" width="100" height="100"></p>
 </div>
