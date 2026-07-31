@@ -23,7 +23,7 @@
     <script src="//cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
 
-    <?php echo $conf["tongji"] ?>
+    <?php if (isset($conf["tongji_open"]) && $conf["tongji_open"] && !empty($conf["tongji"])) echo $conf["tongji"]; ?>
 
 </head>
 <body>

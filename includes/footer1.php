@@ -6,7 +6,7 @@
                     <a class="font-semibold text-windows-color" href="/"><?php echo htmlspecialchars($conf['title']); ?></a> &copy; <?php echo date('Y'); ?>
                 </div>
                 <div class="text-sm text-gray-600">
-                    基于 <a class="text-windows-color hover:underline" href="https://github.com/FirgtZhong/LittlePan_v2" target="_blank" rel="noopener noreferrer">LittlePan_v2</a> 搭建
+                    基于 <a class="text-windows-color hover:underline" href="https://littlepan.netlify.app" target="_blank" rel="noopener noreferrer">LittlePan_v2</a> 搭建
                 </div>
             </div>
         </div>

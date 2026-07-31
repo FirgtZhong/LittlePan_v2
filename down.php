@@ -3,6 +3,12 @@ $nosession=true;
 $nosecu=true;
 include("./includes/common.php");
 
+// 强制禁止缓存，确保封禁状态能实时生效
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+header("Expires: Thu, 01 Jan 1970 00:00:00 GMT");
+
 $urlarr=explode('/',$_SERVER['PATH_INFO']);
 if (($length = count($urlarr)) > 1) {
 $url = $urlarr[$length-1];
@@ -21,7 +27,15 @@ if(strpos($url,".")){
 
 $row = $DB->getRow("SELECT * FROM `pre_file` WHERE `hash`=:hash limit 1", [':hash'=>$hash]);
 if(!$row)exit('404 Not Found');
-if($row['block']>=1)exit('File is blocked!');
+// 修正：将 block 转为整数，处理 NULL 值的情况
+$block_status = intval($row['block']);
+if($block_status >= 1){
+    if($block_status == 2){
+        exit('文件待审核，暂时无法下载！');
+    }else{
+        exit('文件已被封禁，无法下载！');
+    }
+}
 
 if($row['pwd']!=null && $row['pwd']!=$pwd){ ?>
     <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
@@ -42,16 +56,11 @@ if($row['pwd']!=null && $row['pwd']!=$pwd){ ?>
 // 检查文件是否存在，若为WebDAV存储且不存在，返回具体错误
 if($stor->exists($hash))
 {
-    $seconds_to_cache = 3600*24*7;
-    $ts = gmdate("D, d M Y H:i:s", time() + $seconds_to_cache) . " GMT";
-    
     header("Content-Description: File Transfer");
     header("Content-Type:application/force-download");
     header("Content-Length: {$row['size']}");
     header("Content-Disposition:attachment; filename={$row['name']}");
-    header("Expires: $ts");
-    header("Pragma: cache");
-    header("Cache-Control: max-age=$seconds_to_cache");
+    // 注意：不再设置长缓存，保持开头的禁止缓存设置
     
     $DB->exec("UPDATE `pre_file` SET `lasttime`=NOW(),`count`=`count`+1 WHERE `id`='{$row['id']}'");
 

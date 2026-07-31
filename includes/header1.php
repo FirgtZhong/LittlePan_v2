@@ -13,7 +13,7 @@
     <!-- 引入Font Awesome -->
     <link href="https://cdn.jsdmirror.com/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
-    <?php echo isset($conf["tongji"]) ? $conf["tongji"] : ''; ?>
+    <?php if (isset($conf["tongji_open"]) && $conf["tongji_open"] && !empty($conf["tongji"])) echo $conf["tongji"]; ?>
     
     <!-- 配置Tailwind自定义主题 -->
     <script>

@@ -108,4 +108,17 @@ switch($conf['storage']){
 if (!file_exists(ROOT.'install/install.lock') && file_exists(ROOT.'install/index.php')) {
 	sysmsg('<h2>检测到无 install.lock 文件</h2><ul><li><font size="4">如果您尚未安装本程序，请<a href="./install/">前往安装</a></font></li><li><font size="4">如果您已经安装本程序，请手动放置一个空的 install.lock 文件到 /install 文件夹下，<b>为了您站点安全，在您完成它之前我们不会工作。</b></font></li></ul><br/><h4>为什么必须建立 install.lock 文件？</h4>它是安装保护文件，如果检测不到它，就会认为站点还没安装，此时任何人都可以安装/重装你的网站。<br/><br/>');exit;
 }
+
+// ========== 访问统计：记录前台页面访问量 ==========
+$script_name = isset($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME'] : '';
+if (strpos($script_name, '/admin/') === false && strpos($script_name, 'ajax.php') === false && strpos($script_name, 'api.php') === false && php_sapi_name() !== 'cli') {
+	$today = date("Y-m-d");
+	$result = $DB->exec("INSERT INTO pre_views (`date`, `pv`) VALUES ('{$today}', 1) ON DUPLICATE KEY UPDATE `pv` = `pv` + 1");
+	if ($result === false) {
+		// 表不存在时自动创建
+		$DB->exec("CREATE TABLE IF NOT EXISTS `pre_views` (`date` date NOT NULL, `pv` int(11) unsigned NOT NULL DEFAULT '0', PRIMARY KEY (`date`)) ENGINE=InnoDB DEFAULT CHARSET=utf8");
+		$DB->exec("INSERT INTO pre_views (`date`, `pv`) VALUES ('{$today}', 1) ON DUPLICATE KEY UPDATE `pv` = `pv` + 1");
+	}
+}
+// ================================================
 ?>

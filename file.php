@@ -73,18 +73,32 @@ include("./includes/header1.php")
                     </div>
                     <div class="text-center py-4">
                         <?php
-                        if ($filetype == 1) {
-                            echo '<div class="image_view"><a href="' . $viewurl . '" title="点击查看原图"><img alt="' . htmlspecialchars($name) . '" src="' . $viewurl . '" class="max-w-full h-auto mx-auto rounded shadow-sm" style="max-height: 600px;"></a></div>';
-                        } elseif ($filetype == 2) {
-                            echo '<audio controls src="' . $viewurl . '" class="audio-player w-full max-w-lg mx-auto"></audio>';
-                        } elseif ($filetype == 3) {
-                            echo $row['block'] == 0
-                                ? '<video src="' . $viewurl . '" controls class="video-player w-full max-w-4xl mx-auto rounded shadow-sm"></video>'
-                                : '<p class="text-center py-10 text-windows-gray">视频文件需审核通过后才能在线播放和下载，请等待审核通过！</p>';
+                        // 统一的封禁/审核状态检查：block=1 表示已封禁，block=2 表示待审核
+                        if ($row['block'] == 1) {
+                            echo '<div class="py-10">
+                                    <i class="fa fa-ban text-5xl text-red-500 mb-4"></i>
+                                    <p class="text-lg text-red-500 font-semibold mb-2">文件已被封禁</p>
+                                    <p class="text-windows-gray">该文件因违规已被管理员封禁，无法预览和下载。</p>
+                                  </div>';
+                        } elseif ($row['block'] == 2) {
+                            echo '<div class="py-10">
+                                    <i class="fa fa-clock-o text-5xl text-amber-500 mb-4"></i>
+                                    <p class="text-lg text-amber-500 font-semibold mb-2">文件待审核</p>
+                                    <p class="text-windows-gray">该文件正在审核中，审核通过后即可预览和下载。</p>
+                                  </div>';
                         } else {
-                            echo '<a href="' . $downurl . '" class="bg-windows-color hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-md inline-flex items-center btn-hover">
-                                    <i class="fa fa-download mr-2"></i> 下载文件
-                                  </a>';
+                            // block=0，正常文件
+                            if ($filetype == 1) {
+                                echo '<div class="image_view"><a href="' . $viewurl . '" title="点击查看原图"><img alt="' . htmlspecialchars($name) . '" src="' . $viewurl . '" class="max-w-full h-auto mx-auto rounded shadow-sm" style="max-height: 600px;"></a></div>';
+                            } elseif ($filetype == 2) {
+                                echo '<audio controls src="' . $viewurl . '" class="audio-player w-full max-w-lg mx-auto"></audio>';
+                            } elseif ($filetype == 3) {
+                                echo '<video src="' . $viewurl . '" controls class="video-player w-full max-w-4xl mx-auto rounded shadow-sm"></video>';
+                            } else {
+                                echo '<a href="' . $downurl . '" class="bg-windows-color hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-md inline-flex items-center btn-hover">
+                                        <i class="fa fa-download mr-2"></i> 下载文件
+                                      </a>';
+                            }
                         }
                         ?>
                     </div>

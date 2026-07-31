@@ -39,6 +39,15 @@ INSERT INTO `pre_config` VALUES ('alpha-rgba', '0.7');
 INSERT INTO `pre_config` VALUES ('bg', '//dailybing.com/api/v1');
 INSERT INTO `pre_config` VALUES ('icon', '/favicon.ico');
 INSERT INTO `pre_config` VALUES ('gg_file', '网站所有文件内容均由用户自行上传分享，本站严格遵守国家相关法律法规，尊重著作权、版权等第三方权利，如果当前文件侵犯了您的相关权利，请邮件反馈至@qq.com，我们将及时处理。');
+INSERT INTO `pre_config` VALUES ('tongji_open', '0');
+INSERT INTO `pre_config` VALUES ('tongji', '');
+
+DROP TABLE IF EXISTS `pre_views`;
+CREATE TABLE `pre_views` (
+  `date` date NOT NULL,
+  `pv` int(11) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`date`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `pre_file`;
 CREATE TABLE `pre_file` (

@@ -24,25 +24,27 @@ $totalSizeFormatted = size_format($totalSize ?: 0);
 
     <!-- 主内容区 -->
     <main class="container mx-auto px-4 py-8">       
-            <!-- 网站公告预览 
+            <?php if (!empty($conf['notice_open'])) { ?>
             <section>
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-lg font-semibold flex items-center">
-                        <i class="fa fa-bullhorn text-windows-color mr-2"></i>最新公告
+                        <i class="fa fa-bullhorn text-windows-color mr-2"></i><?php echo htmlspecialchars($conf['notice_title'] ? $conf['notice_title'] : '最新公告'); ?>
                     </h3>
                 </div>
                 
                 <div class="bg-white rounded-xl shadow-windows border border-gray-100 p-6">
                     <div class="flex items-start gap-4">
                         <div>
-                            <h4 class="font-medium mb-1"><?php echo $conf['gg_title'] ?></h4>
-                            <p class="text-windows-gray text-sm mb-3"><?php echo $conf['gg_view'] ?></p>
-                            <div class="text-xs text-windows-gray">发布时间: <?php echo $conf['gg_time'] ?></div>
+                            <p class="text-windows-gray text-sm mb-3"><?php echo nl2br(htmlspecialchars($conf['notice_content'] ? $conf['notice_content'] : '暂无公告内容')); ?></p>
+                            <?php if (!empty($conf['notice_time'])) { ?>
+                            <div class="text-xs text-windows-gray">发布时间: <?php echo htmlspecialchars($conf['notice_time']); ?></div>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
             </section>
-        <br>-->
+            <?php } ?>
+        <br>
         <!-- 文件管理页面 -->
             <!-- 页面标题和操作区 -->
             <div class="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">

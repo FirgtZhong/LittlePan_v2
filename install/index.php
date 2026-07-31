@@ -12,7 +12,22 @@ if(defined('SAE_ACCESSKEY')){
 $step=isset($_GET['step'])?$_GET['step']:1;
 $action=isset($_POST['action'])?$_POST['action']:null;
 if(file_exists('install.lock')){
-    exit('如需安装，请手动删除install目录下install.lock文件！');
+    $step=isset($_GET['step'])?$_GET['step']:1;
+    // 重新安装：用户确认后删除锁文件
+    if($step=='reinstall_confirm'){
+        @header('Content-Type: text/html; charset=UTF-8');
+        echo '<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><title>LittlePan外链网盘 - 重新安装</title><link href="//cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"></head><body><div class="container"><br><div class="row"><div class="col-xs-12"><pre><h4>LittlePan外链网盘 - 重新安装确认</h4></pre></div><div class="col-xs-12"><div class="panel panel-danger"><div class="panel-heading text-center">危险操作确认</div><div class="panel-body"><div class="alert alert-danger"><b>警告：重新安装将清空所有数据！</b><br><br>重新安装会执行 DROP TABLE 操作，<b>所有文件记录、配置、访问统计等数据将被永久删除</b>，且无法恢复。<br><br>如果只想更新到新版本，请选择<a href="update.php">增量更新</a>（不会丢失数据）。</div><div class="text-center"><a href="?step=reinstall_do" class="btn btn-danger">我已了解风险，确认重新安装</a>&nbsp;&nbsp;<a href="index.php" class="btn btn-default">返回</a>&nbsp;&nbsp;<a href="update.php" class="btn btn-primary">改为增量更新</a></div></div></div></div></div></div></body></html>';
+        exit;
+    }
+    if($step=='reinstall_do'){
+        @unlink('install.lock');
+        header('Location: index.php');
+        exit;
+    }
+    // 默认：显示选择页面
+    @header('Content-Type: text/html; charset=UTF-8');
+    echo '<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><title>LittlePan外链网盘 - 安装程序</title><link href="//cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"></head><body><div class="container"><br><div class="row"><div class="col-xs-12"><pre><h4>LittlePan外链网盘 - 安装程序</h4></pre></div><div class="col-xs-12"><div class="panel panel-warning"><div class="panel-heading text-center">检测到程序已安装（install.lock 存在）</div><div class="panel-body"><div class="alert alert-info">请选择您要执行的操作：</div><div class="list-group"><a href="update.php" class="list-group-item"><h4 class="list-group-item-heading"><span class="glyphicon glyphicon-arrow-up text-success"></span> 增量更新（推荐）</h4><p class="list-group-item-text">升级到新版本，<b>不会修改或删除已有数据</b>，只添加新表和新配置项。</p></a><a href="?step=reinstall_confirm" class="list-group-item"><h4 class="list-group-item-heading"><span class="glyphicon glyphicon-refresh text-danger"></span> 重新安装</h4><p class="list-group-item-text">全新安装，<b class="text-danger">将清空所有数据</b>。仅在没有其他办法时使用。</p></a></div></div></div></div></div><footer class="footer"><pre><center>Powered by <a href="https://github.com/FirgtZhong">FirgtZhong</a>. 源码版本：<a href="https://github.com/FirgtZhong/LittlePan_v2">LittlePan_v2-v1.9.0-RC</a></center></pre></footer></div></body></html>';
+    exit;
 }
 
 
@@ -229,7 +244,7 @@ $dbconfig=array(
     </div>
 
     <footer class="footer">
-        <pre><center>Powered by <a href="https://github.com/FirgtZhong">FirgtZhong</a>. 源码版本：<a href="https://github.com/FirgtZhong/LittlePan_v2">LittlePan_v2-v1.8.0-RC</a></center></pre>
+        <pre><center>Powered by <a href="https://github.com/FirgtZhong">FirgtZhong</a>. 源码版本：<a href="https://github.com/FirgtZhong/LittlePan_v2">LittlePan_v2-v1.9.0-RC</a></center></pre>
     </footer>
 </div>
 </body>

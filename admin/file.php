@@ -185,10 +185,15 @@ function setBlock(id,status) {
 		url : 'ajax.php?act=setBlock&id='+id+'&status='+status,
 		dataType : 'json',
 		success : function(data) {
-			listTable();
+			if(data.code == 0){
+				layer.msg(data.msg, {icon: 1});
+				listTable();
+			}else{
+				layer.msg(data.msg, {icon: 2});
+			}
 		},
 		error:function(data){
-			layer.msg('服务器错误');
+			layer.msg('服务器错误，请检查网络连接', {icon: 2});
 			return false;
 		}
 	});

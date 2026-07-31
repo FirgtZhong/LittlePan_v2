@@ -3,7 +3,12 @@ include("../includes/common.php");
 if($islogin==1){}else exit("<script language='javascript'>window.location.href='./login.php';</script>");
 $act=isset($_GET['act'])?daddslashes($_GET['act']):null;
 
-if(strpos($_SERVER['HTTP_REFERER'],$_SERVER['HTTP_HOST'])===false)exit('{"code":403}');
+// 改进的 Referer 检查：如果没有 Referer 或 Referer 为空，允许请求（兼容浏览器隐私设置和直接访问的场景）
+$referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
+if (!empty($referer) && strpos($referer, $_SERVER['HTTP_HOST']) === false) {
+    // 只有当 Referer 存在且不匹配时才拒绝
+    exit('{"code":403}');
+}
 
 @header('Content-Type: application/json; charset=UTF-8');
 
@@ -14,15 +19,23 @@ case 'getcount':
 	$count1=$DB->getColumn("SELECT count(*) from pre_file");
 	$count2=$DB->getColumn("SELECT count(*) from pre_file WHERE addtime>='$thtime'");
 	$count3=$DB->getColumn("SELECT count(*) from pre_file WHERE addtime>='$lastday' AND addtime<'$thtime'");
+	// 今日访问量
+	$today_date=date("Y-m-d");
+	$count4=$DB->getColumn("SELECT pv FROM pre_views WHERE `date`='$today_date'");
+	$count4=$count4?$count4:0;
+	// 总访问量
+	$count5=$DB->getColumn("SELECT sum(pv) FROM pre_views");
+	$count5=$count5?$count5:0;
 
-	$result=["code"=>0,"count1"=>$count1,"count2"=>$count2,"count3"=>$count3];
+	$result=["code"=>0,"count1"=>$count1,"count2"=>$count2,"count3"=>$count3,"count4"=>$count4,"count5"=>$count5];
 	exit(json_encode($result));
 break;
 case 'setBlock':
 	$id=intval($_GET['id']);
 	$status=intval($_GET['status']);
-	$sql = "UPDATE pre_file SET `block`='$status' WHERE id='$id'";
-	if($DB->exec($sql)!==false)exit('{"code":0,"msg":"修改成功！"}');
+	$data = [':status'=>$status, ':id'=>$id];
+	$sql = "UPDATE pre_file SET `block`=:status WHERE id=:id";
+	if($DB->exec($sql, $data)!==false)exit('{"code":0,"msg":"修改成功！"}');
 	else exit('{"code":-1,"msg":"修改失败['.$DB->error().']"}');
 break;
 case 'delFile':
@@ -96,10 +109,6 @@ case 'iptype':
 	];
 	exit(json_encode($result));
 break;
-default:
-	exit('{"code":-4,"msg":"No Act"}');
-break;
-// 在现有case后面添加
 case 'saveAbout':
     if(!$islogin) exit(json_encode(['code'=>-1, 'msg'=>'请先登录']));
     
@@ -131,5 +140,8 @@ case 'saveAbout':
     }else{
         exit(json_encode(['code'=>-1, 'msg'=>'文件写入失败，请检查权限']));
     }
+break;
+default:
+	exit('{"code":-4,"msg":"No Act"}');
 break;
 }

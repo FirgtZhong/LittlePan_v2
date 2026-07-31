@@ -92,7 +92,7 @@ $mysqlversion=$DB->getColumn("select VERSION()");
                         </div>
                         <a href="#">
                             <div class="panel-footer">
-                                <span class="pull-left">查看详情</span>
+                                <span class="pull-left">总访问：<span id="count5">0</span></span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
@@ -127,7 +127,7 @@ $mysqlversion=$DB->getColumn("select VERSION()");
 			<b>文件上传许可：</b><?php echo ini_get('upload_max_filesize'); ?>
 		</li>
 				<li class="list-group-item">
-			<b>源码版本：</b><a href="<?php echo $conf['url']; ?>"><font color="green">LittlePan_v2-v1.8.0-RC</font></a>
+			<b>源码版本：</b><a href="<?php echo $conf['url']; ?>"><font color="green">LittlePan_v2-v1.9.0-RC</font></a>
 		</li>
 	</ul>
 </div>
@@ -144,6 +144,8 @@ $(document).ready(function(){
             $('#count1').html(data.count1);
 			$('#count2').html(data.count2);
 			$('#count3').html(data.count3);
+			$('#count4').html(data.count4);
+			$('#count5').html(data.count5);
         }
     })
 })

@@ -60,14 +60,85 @@ if($mod=='site') {
 		  <div class="col-sm-2"><textarea class="form-control" name="alpha-rgba" rows="2" placeholder="0~1之间的数值(Alpha 透明度)"><?php echo htmlspecialchars($conf['alpha-rgba'])?></textarea></div>
 		</div><br/>
 		<div class="form-group">
-		  <label class="col-sm-2 control-label">统计代码</label>
-		  <div class="col-sm-10"><textarea class="form-control" name="tongji" rows="3" placeholder="不填写则不显示统计代码"><?php echo htmlspecialchars($conf['tongji'])?></textarea></div>
-		</div><br/>
+	  <label class="col-sm-2 control-label">统计代码</label>
+	  <div class="col-sm-10"><font color="gray">已迁移至<a href="./set.php?mod=tongji">第三方统计设置</a>页面</font></div>
+	</div><br/>
 		<div class="form-group">
 		  <div class="col-sm-offset-2 col-sm-10"><input type="submit" name="submit" value="修改" class="btn btn-primary form-control"/><br/>
 		 </div>
 		</div>
 	  </form>
+	</div>
+	</div>
+	<?php
+} elseif($mod=='notice') {
+	?>
+	<div class="panel panel-primary">
+	<div class="panel-heading"><h3 class="panel-title">首页公告设置</h3></div>
+	<div class="panel-body">
+	  <form onsubmit="return saveSetting(this)" method="post" class="form-horizontal" role="form">
+		<div class="form-group">
+		  <label class="col-sm-2 control-label">显示公告</label>
+		  <div class="col-sm-10">
+		    <select class="form-control" name="notice_open" default="<?php echo $conf['notice_open']?>">
+		      <option value="0">隐藏</option>
+		      <option value="1">显示</option>
+		    </select>
+		    <font color="green">选择"显示"后，首页将显示公告内容</font>
+		  </div>
+		</div><br/>
+		<div class="form-group">
+		  <label class="col-sm-2 control-label">公告标题</label>
+		  <div class="col-sm-10"><input type="text" name="notice_title" value="<?php echo htmlspecialchars($conf['notice_title'])?>" class="form-control" placeholder="例如：最新公告"/></div>
+		</div><br/>
+		<div class="form-group">
+		  <label class="col-sm-2 control-label">公告内容</label>
+		  <div class="col-sm-10"><textarea class="form-control" name="notice_content" rows="5" placeholder="请输入公告内容，支持换行"><?php echo htmlspecialchars($conf['notice_content'])?></textarea></div>
+		</div><br/>
+		<div class="form-group">
+		  <label class="col-sm-2 control-label">发布时间</label>
+		  <div class="col-sm-10"><input type="text" name="notice_time" value="<?php echo htmlspecialchars($conf['notice_time'])?>" class="form-control" placeholder="例如：2026.07.31 12:00"/></div>
+		</div><br/>
+		<div class="form-group">
+		  <div class="col-sm-offset-2 col-sm-10"><input type="submit" name="submit" value="保存修改" class="btn btn-primary form-control"/><br/>
+		 </div>
+		</div>
+	  </form>
+	</div>
+	</div>
+	<?php
+} elseif($mod=='tongji') {
+	?>
+	<div class="panel panel-primary">
+	<div class="panel-heading"><h3 class="panel-title">第三方统计设置</h3></div>
+	<div class="panel-body">
+	  <form onsubmit="return saveSetting(this)" method="post" class="form-horizontal" role="form">
+		<div class="form-group">
+		  <label class="col-sm-2 control-label">第三方统计</label>
+		  <div class="col-sm-10">
+		    <select class="form-control" name="tongji_open" default="<?php echo isset($conf['tongji_open'])?$conf['tongji_open']:'0'?>">
+		      <option value="0">关闭</option>
+		      <option value="1">开启</option>
+		    </select>
+		    <font color="green">开启后将在前台页面底部插入第三方统计代码（如百度统计、Google Analytics、51la等）</font>
+		  </div>
+		</div><br/>
+		<div class="form-group">
+		  <label class="col-sm-2 control-label">统计代码</label>
+		  <div class="col-sm-10">
+		    <textarea class="form-control" name="tongji" rows="8" placeholder="请在此粘贴第三方统计代码（支持script标签）"><?php echo htmlspecialchars(isset($conf['tongji'])?$conf['tongji']:'')?></textarea>
+		    <font color="blue">提示：百度统计、Google Analytics、CNZZ、51la等均可直接粘贴完整script代码</font>
+		  </div>
+		</div><br/>
+		<div class="form-group">
+		  <div class="col-sm-offset-2 col-sm-10"><input type="submit" name="submit" value="保存修改" class="btn btn-primary form-control"/><br/>
+		 </div>
+		</div>
+	  </form>
+	</div>
+	<div class="panel-footer">
+	<span class="glyphicon glyphicon-info-sign"></span>
+	网站自身统计（今日访问/总访问）始终开启，无需在此设置。本页面仅用于添加第三方统计代码。
 	</div>
 	</div>
 	<?php

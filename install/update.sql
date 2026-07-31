@@ -1,43 +1,24 @@
-DROP TABLE IF EXISTS `pre_config`;
-create table `pre_config` (
-  `k` varchar(32) NOT NULL,
-  `v` text NULL,
-  PRIMARY KEY  (`k`)
+-- LittlePan_v2 增量更新脚本
+-- 此脚本仅添加新表和新配置项，不会修改或删除已有数据
+-- 所有 CREATE TABLE 使用 IF NOT EXISTS，所有 INSERT 使用 IGNORE 避免重复插入
+
+-- ========== v1.9.0 新增：访问统计表 ==========
+CREATE TABLE IF NOT EXISTS `pre_views` (
+  `date` date NOT NULL,
+  `pv` int(11) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `pre_config` VALUES ('cache', '');
-INSERT INTO `pre_config` VALUES ('admin_user', 'admin');
-INSERT INTO `pre_config` VALUES ('admin_pwd', '123456');
-INSERT INTO `pre_config` VALUES ('blackip', '');
-INSERT INTO `pre_config` VALUES ('title', '外链网盘');
-INSERT INTO `pre_config` VALUES ('keywords', '外链网盘,免费外链,免费图床,图片外链');
-INSERT INTO `pre_config` VALUES ('description', '外链网盘提供大容量云存储服务');
-INSERT INTO `pre_config` VALUES ('storage', 'local');
-INSERT INTO `pre_config` VALUES ('filepath', '');
-INSERT INTO `pre_config` VALUES ('aliyun_ak', '');
-INSERT INTO `pre_config` VALUES ('aliyun_sk', '');
-INSERT INTO `pre_config` VALUES ('name_block', '');
-INSERT INTO `pre_config` VALUES ('type_block', '');
-INSERT INTO `pre_config` VALUES ('type_image', 'png|jpg|jpeg|gif|bmp|webp|ico|svg|svgz|tif|tiff');
-INSERT INTO `pre_config` VALUES ('type_audio', 'mp3|wav|wma|ogg|m4a');
-INSERT INTO `pre_config` VALUES ('type_video', 'mp4|webm|flv|f4v|mov|3gp|3gpp|avi|mpg|mpeg|wmv|mkv|ts');
-INSERT INTO `pre_config` VALUES ('green_check', '0');
-INSERT INTO `pre_config` VALUES ('green_check_region', 'cn-beijing');
-INSERT INTO `pre_config` VALUES ('green_check_porn', '0');
-INSERT INTO `pre_config` VALUES ('green_check_terrorism', '0');
-INSERT INTO `pre_config` VALUES ('green_label_porn', 'sexy,porn');
-INSERT INTO `pre_config` VALUES ('green_label_terrorism', 'bloody,explosion,outfit,logo,weapon,politics');
-INSERT INTO `pre_config` VALUES ('gg_file', '网站所有文件内容均由用户自行上传分享，本站严格遵守国家相关法律法规，尊重著作权、版权等第三方权利，如果当前文件侵犯了您的相关权利，请邮件反馈至@qq.com，我们将及时处理。');
+-- ========== v1.9.0 新增：第三方统计配置项 ==========
+INSERT IGNORE INTO `pre_config` VALUES ('tongji_open', '0');
+INSERT IGNORE INTO `pre_config` VALUES ('tongji', '');
 
-ALTER TABLE `udisk` RENAME TO `pre_file`;
+-- ========== v1.9.0 新增：首页公告配置项 ==========
+INSERT IGNORE INTO `pre_config` VALUES ('notice_open', '0');
+INSERT IGNORE INTO `pre_config` VALUES ('notice_title', '');
+INSERT IGNORE INTO `pre_config` VALUES ('notice_content', '');
+INSERT IGNORE INTO `pre_config` VALUES ('notice_time', '');
 
-ALTER TABLE `pre_file`
-CHANGE COLUMN `filename` `name` varchar(255) NOT NULL,
-CHANGE COLUMN `datetime` `addtime` datetime NOT NULL,
-CHANGE COLUMN `fileurl` `hash` varchar(32) NOT NULL,
-MODIFY COLUMN `type` varchar(50) DEFAULT NULL,
-MODIFY COLUMN `size` int(11) unsigned NOT NULL,
-ADD COLUMN `count` int(11) unsigned NOT NULL DEFAULT '0';
-
-ALTER TABLE `pre_file`
-ADD INDEX `hash` (`hash`);
+-- ========== v1.9.0 新增：pre_file 表 block 字段（兼容旧版本） ==========
+-- 如果 block 字段不存在则添加，已存在则跳过
+-- 注意：MySQL 不支持 ADD COLUMN IF NOT EXISTS，需在 update.php 中用 PHP 判断
