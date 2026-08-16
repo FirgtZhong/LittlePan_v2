@@ -3,135 +3,50 @@ include("../includes/common.php");
 $title='外链网盘管理中心';
 include './head.php';
 if($islogin==1){}else exit("<script language='javascript'>window.location.href='./login.php';</script>");
-?>
-<?php
 $mysqlversion=$DB->getColumn("select VERSION()");
 ?>
-<link href="../assets/css/admin.css" rel="stylesheet"/>
-<div class="container" style="padding-top:70px;">
-<div class="col-md-12 col-lg-10 center-block" style="float: none;">
-<div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-cloud fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge" id="count2">0</div>
-                                    <div>今日上传文件</div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="file.php">
-                            <div class="panel-footer">
-                                <span class="pull-left" herf="file.php">查看详情</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-green">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-cloud-upload fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge" id="count3">0</div>
-                                    <div>昨日上传文件</div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="file.php">
-                            <div class="panel-footer">
-                                <span class="pull-left">查看详情</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-yellow">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-inbox fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge" id="count1">0</div>
-                                    <div>现存文件</div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="file.php">
-                            <div class="panel-footer">
-                                <span class="pull-left">查看详情</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-red">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-users fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge" id="count4">0</div>
-                                    <div>今日访问</div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="#">
-                            <div class="panel-footer">
-                                <span class="pull-left">总访问：<span id="count5">0</span></span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!-- /.row -->
-<div class="panel panel-info">
-	<div class="panel-heading">
-		<h3 class="panel-title">服务器信息</h3>
-	</div>
-	<ul class="list-group">
-		<li class="list-group-item">
-			<b>PHP 版本：</b><?php echo phpversion() ?>
-			<?php if(ini_get('safe_mode')) { echo '线程安全'; } else { echo '非线程安全'; } ?>
-		</li>
-		<li class="list-group-item">
-			<b>MySQL 版本：</b><?php echo $mysqlversion ?>
-		</li>
-		<li class="list-group-item">
-			<b>服务器软件：</b><?php echo $_SERVER['SERVER_SOFTWARE'] ?>
-		</li>
-		
-		<li class="list-group-item">
-			<b>程序最大运行时间：</b><?php echo ini_get('max_execution_time') ?>s
-		</li>
-		<li class="list-group-item">
-			<b>POST请求许可：</b><?php echo ini_get('post_max_size'); ?>
-		</li>
-		<li class="list-group-item">
-			<b>文件上传许可：</b><?php echo ini_get('upload_max_filesize'); ?>
-		</li>
-				<li class="list-group-item">
-			<b>源码版本：</b><a href="<?php echo $conf['url']; ?>"><font color="green">LittlePan_v2-v1.9.0-RC</font></a>
-		</li>
-	</ul>
+<div class="stat-grid">
+  <a href="file.php" class="stat-card">
+    <div class="stat-icon" style="background:#0078d4"><i class="fa fa-cloud"></i></div>
+    <div class="stat-body">
+      <div class="stat-num" id="count2">0</div>
+      <div class="stat-label">今日上传文件</div>
+    </div>
+  </a>
+  <a href="file.php" class="stat-card">
+    <div class="stat-icon" style="background:#107c10"><i class="fa fa-cloud-upload"></i></div>
+    <div class="stat-body">
+      <div class="stat-num" id="count3">0</div>
+      <div class="stat-label">昨日上传文件</div>
+    </div>
+  </a>
+  <a href="file.php" class="stat-card">
+    <div class="stat-icon" style="background:#ca5010"><i class="fa fa-inbox"></i></div>
+    <div class="stat-body">
+      <div class="stat-num" id="count1">0</div>
+      <div class="stat-label">现存文件</div>
+    </div>
+  </a>
+  <div class="stat-card">
+    <div class="stat-icon" style="background:#d13438"><i class="fa fa-users"></i></div>
+    <div class="stat-body">
+      <div class="stat-num" id="count4">0</div>
+      <div class="stat-label">今日访问 / 总计 <span id="count5">0</span></div>
+    </div>
+  </div>
 </div>
-	</div>
+
+<div class="info-card">
+  <div class="info-head">服务器信息</div>
+  <ul class="kv-list">
+    <li><b>PHP 版本：</b><span><?=phpversion()?> (<?=ini_get('safe_mode')?'线程安全':'非线程安全'?>)</span></li>
+    <li><b>MySQL 版本：</b><span><?=htmlspecialchars($mysqlversion)?></span></li>
+    <li><b>服务器软件：</b><span><?=htmlspecialchars($_SERVER['SERVER_SOFTWARE'])?></span></li>
+    <li><b>程序最大运行时间：</b><span><?=ini_get('max_execution_time')?>s</span></li>
+    <li><b>POST 请求许可：</b><span><?=ini_get('post_max_size')?></span></li>
+    <li><b>文件上传许可：</b><span><?=ini_get('upload_max_filesize')?></span></li>
+    <li><b>源码版本：</b><span><a href="<?=htmlspecialchars($conf['url'])?>"><font color="green">LittlePan_v2-v1.9.1-RC</font></a></span></li>
+  </ul>
 </div>
 <script>
 $(document).ready(function(){
@@ -147,6 +62,7 @@ $(document).ready(function(){
 			$('#count4').html(data.count4);
 			$('#count5').html(data.count5);
         }
-    })
-})
+    });
+});
 </script>
+<?php include './footer.php';?>

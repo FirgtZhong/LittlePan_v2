@@ -1,20 +1,22 @@
 <?php
 /**
- * 文件管理
+ * 文件管理 - 表格部分（AJAX 返回）
 **/
 include("../includes/common.php");
 if($islogin==1){}else exit("<script language='javascript'>window.location.href='./login.php';</script>");
 
 function display_status($status, $id){
 	if($status == 2){
-		return '<a href="javascript:setBlock('.$id.',0)" class="btn btn-xs btn-warning">待审</a>';
+		return '<a href="javascript:setBlock('.$id.',0)" class="status-tag status-pending">待审</a>';
 	}elseif($status == 1){
-		return '<a href="javascript:setBlock('.$id.',0)" class="btn btn-xs btn-danger">封禁</a>';
+		return '<a href="javascript:setBlock('.$id.',0)" class="status-tag status-block">封禁</a>';
 	}else{
-		return '<a href="javascript:setBlock('.$id.',1)" class="btn btn-xs btn-success">正常</a>';
+		return '<a href="javascript:setBlock('.$id.',1)" class="status-tag status-normal">正常</a>';
 	}
 }
 
+$sqls = '';
+$links = '';
 if (isset($_GET['dstatus']) && $_GET['dstatus']>0) {
 	if($_GET['dstatus']==3){
 		$sqls = " AND `block`=2";
@@ -42,26 +44,36 @@ if(isset($_GET['kw']) && !empty($_GET['kw'])) {
 	}
 	$sql.=$sqls;
 	$numrows=$DB->getColumn("SELECT count(*) from pre_file WHERE{$sql}");
-	$con='包含 '.$kw.' 的共有 <b>'.$numrows.'</b> 个记录';
-	$link='&type='.$type.'&kw='.$kw.$links;
+	$con='包含 '.htmlspecialchars($kw).' 的共有 <b>'.$numrows.'</b> 个记录';
+	$link='&type='.$type.'&kw='.urlencode($kw).$links;
 }else{
 	$sql=" 1".$sqls;
 	$numrows=$DB->getColumn("SELECT count(*) from pre_file WHERE{$sql}");
 	$con='系统共有 <b>'.$numrows.'</b> 条记录';
 	$link=$links;
 }
-
 ?>
-<?php echo $con?>
+<div class="toolbar-count" style="margin-bottom:10px;color:#6b7280;font-size:13px;"><?=$con?></div>
 <form name="form1" id="form1">
-	  <div class="table-responsive">
-        <table class="table table-striped table-vcenter table-hover">
-		  <thead><tr><th>ID</th><th>文件名</th><th>文件大小</th><th>文件格式</th><th>上传日期/上次下载</th><th>上传IP/下载量</th><th>状态</th><th>操作</th></tr></thead>
-          <tbody>
+	<table class="file-grid" id="grid">
+		<thead>
+			<tr>
+				<th scope="col" style="width:42px;">ID</th>
+				<th scope="col">文件名</th>
+				<th scope="col">文件大小</th>
+				<th scope="col">格式</th>
+				<th scope="col">上传日期/上次下载</th>
+				<th scope="col">上传IP/下载量</th>
+				<th scope="col">状态</th>
+				<th scope="col">操作</th>
+			</tr>
+		</thead>
+		<tbody>
 <?php
 $pagesize=15;
 $pages=ceil($numrows/$pagesize);
 $page=isset($_GET['page'])?intval($_GET['page']):1;
+if($page<1)$page=1;
 $offset=$pagesize*($page - 1);
 
 $rs=$DB->query("SELECT * FROM pre_file WHERE{$sql} order by id desc limit $offset,$pagesize");
@@ -74,41 +86,57 @@ while($res = $rs->fetch())
 	}
 	$fileurl = '/down.php/'.$res['hash'].'.'.($res['type']?$res['type']:'file').$pwd_ext1;
 	$viewurl = '/file.php?hash='.$res['hash'].$pwd_ext2;
-echo '<tr><td><input type="checkbox" name="checkbox[]" id="list1" value="'.$res['id'].'" onClick="unselectall1()"><b>'.$res['id'].'</b></td><td><a href="'.$fileurl.'" title="点击下载"><i class="fa '.type_to_icon($res['type']).' fa-fw"></i>'.$res['name'].'</a>'.(is_view($res['type'])?' [<a href="javascript:showfile('.$res['id'].')">预览</a>]':null).'</td><td>'.size_format($res['size']).'</td><td><font color="blue">'.($res['type']?$res['type']:'未知').'</font></td><td>'.$res['addtime'].'<br/>'.$res['lasttime'].'</td><td><a href="/ip.php?ip='.$res['ip'].'" target="_blank" rel="noreferrer">'.$res['ip'].'</a><br/><b>'.$res['count'].'</b></td><td>'.display_status($res['block'], $res['id']).'</td><td><a href="javascript:editframe('.$res['id'].')" class="btn btn-xs btn-info">编辑</a>&nbsp;<a href="'.$viewurl.'" class="btn btn-xs btn-warning" target="_blank">查看</a>&nbsp;<a href="javascript:delFile('.$res['id'].')" class="btn btn-xs btn-danger">删除</a></td></tr>';
+	$preview = is_view($res['type']) ? ' [<a href="javascript:showfile('.$res['id'].')">预览</a>]' : '';
+	echo '<tr>';
+	echo '<td><input type="checkbox" class="row-check" name="checkbox[]" value="'.$res['id'].'" onclick="syncMaster()"><b>'.$res['id'].'</b></td>';
+	echo '<td><a href="'.$fileurl.'" title="点击下载"><i class="fa '.type_to_icon($res['type']).' fa-fw"></i>'.htmlspecialchars($res['name']).'</a>'.$preview.'</td>';
+	echo '<td>'.size_format($res['size']).'</td>';
+	echo '<td><font color="blue">'.($res['type']?htmlspecialchars($res['type']):'未知').'</font></td>';
+	echo '<td>'.htmlspecialchars($res['addtime']).'<br/>'.htmlspecialchars($res['lasttime']).'</td>';
+	echo '<td><a href="/ip.php?ip='.urlencode($res['ip']).'" target="_blank" rel="noreferrer">'.htmlspecialchars($res['ip']).'</a><br/><b>'.intval($res['count']).'</b></td>';
+	echo '<td>'.display_status($res['block'], $res['id']).'</td>';
+	echo '<td class="grid-actions">';
+	echo '<a href="javascript:editframe('.$res['id'].')" class="grid-btn btn-edit">编辑</a>';
+	echo '<a href="'.$viewurl.'" class="grid-btn btn-view" target="_blank">查看</a>';
+	echo '<a href="javascript:delFile('.$res['id'].')" class="grid-btn btn-del">删除</a>';
+	echo '</td>';
+	echo '</tr>';
 }
 ?>
-          </tbody>
-        </table>
-		<label class="checkbox-inline"><input name="chkAll1" type="checkbox" id="chkAll1" onClick="this.value=check1(this.form.list1)" value="checkbox">全选</label>&nbsp;&nbsp;<button type="button" onclick="operation()">删除选中</button>
-      </div>
-	  </form>
+		</tbody>
+	</table>
+	<div class="batch-bar">
+		<label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
+			<input type="checkbox" id="chkAll1" onclick="toggleAll(this)"> 全选
+		</label>
+		<fluent-button appearance="accent" onclick="operation()"><i class="fa fa-trash"></i> 删除选中</fluent-button>
+	</div>
+</form>
 <?php
-echo'<div class="text-center"><ul class="pagination">';
+echo '<ul class="pagination">';
 $first=1;
 $prev=$page-1;
 $next=$page+1;
 $last=$pages;
-if ($page>1)
-{
-echo '<li><a href="javascript:void(0)" onclick="listTable(\'page='.$first.$link.'\')">首页</a></li>';
-echo '<li><a href="javascript:void(0)" onclick="listTable(\'page='.$prev.$link.'\')">&laquo;</a></li>';
+if ($page>1){
+	echo '<li><a href="javascript:void(0)" onclick="listTable(\'page='.$first.$link.'\')">首页</a></li>';
+	echo '<li><a href="javascript:void(0)" onclick="listTable(\'page='.$prev.$link.'\')">&laquo;</a></li>';
 } else {
-echo '<li class="disabled"><a>首页</a></li>';
-echo '<li class="disabled"><a>&laquo;</a></li>';
+	echo '<li class="disabled"><span>首页</span></li>';
+	echo '<li class="disabled"><span>&laquo;</span></li>';
 }
 $start=$page-10>1?$page-10:1;
 $end=$page+10<$pages?$page+10:$pages;
 for ($i=$start;$i<$page;$i++)
-echo '<li><a href="javascript:void(0)" onclick="listTable(\'page='.$i.$link.'\')">'.$i .'</a></li>';
-echo '<li class="disabled"><a>'.$page.'</a></li>';
+echo '<li><a href="javascript:void(0)" onclick="listTable(\'page='.$i.$link.'\')">'.$i.'</a></li>';
+echo '<li class="active"><span>'.$page.'</span></li>';
 for ($i=$page+1;$i<=$end;$i++)
-echo '<li><a href="javascript:void(0)" onclick="listTable(\'page='.$i.$link.'\')">'.$i .'</a></li>';
-if ($page<$pages)
-{
-echo '<li><a href="javascript:void(0)" onclick="listTable(\'page='.$next.$link.'\')">&raquo;</a></li>';
-echo '<li><a href="javascript:void(0)" onclick="listTable(\'page='.$last.$link.'\')">尾页</a></li>';
+echo '<li><a href="javascript:void(0)" onclick="listTable(\'page='.$i.$link.'\')">'.$i.'</a></li>';
+if ($page<$pages){
+	echo '<li><a href="javascript:void(0)" onclick="listTable(\'page='.$next.$link.'\')">&raquo;</a></li>';
+	echo '<li><a href="javascript:void(0)" onclick="listTable(\'page='.$last.$link.'\')">尾页</a></li>';
 } else {
-echo '<li class="disabled"><a>&raquo;</a></li>';
-echo '<li class="disabled"><a>尾页</a></li>';
+	echo '<li class="disabled"><span>&raquo;</span></li>';
+	echo '<li class="disabled"><span>尾页</span></li>';
 }
-echo'</ul></div>';
+echo '</ul>';
