@@ -267,10 +267,12 @@ function operation(){
 }
 
 function showfile(id){
+	var base = document.querySelector('base') ? document.querySelector('base').href : window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '/');
+	var abs = new URL('file-view.php?id=' + id, base).href;
 	FluentUI.dialog({
 		title: '文件预览',
 		wide: true,
-		body: '<iframe src="./file-view.php?id='+id+'" style="width:100%;height:70vh;border:0;border-radius:4px;"></iframe>',
+		body: '<iframe src="' + abs + '" class="preview-iframe" allow="autoplay; fullscreen" allowfullscreen></iframe>',
 		okText: false,
 		cancelText: '关闭'
 	});

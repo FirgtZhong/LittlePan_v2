@@ -180,7 +180,29 @@ a:hover { text-decoration: underline; }
 
 /* ===== Fluent Dialog 内容样式 ===== */
 .flu-dialog { max-width: 92vw; min-width: 320px; padding: 0; border-radius: 8px; }
-.flu-dialog.flu-dialog-wide { min-width: 520px; }
+/* 宽屏对话框：用于视频/图片预览，锁定 16:9 附近比例 */
+.flu-dialog.flu-dialog-wide {
+  min-width: 0;
+  width: min(90vw, 960px);
+  max-width: min(90vw, 960px);
+}
+.flu-dialog.flu-dialog-wide .flu-dialog-body {
+  padding: 0;
+  background: #000;
+}
+.flu-dialog.flu-dialog-wide .flu-dialog-title {
+  padding: 12px 20px;
+}
+/* 预览 iframe 铺满对话框，锁定 16:9 */
+.preview-iframe {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  max-height: 78vh;
+  border: 0;
+  display: block;
+  background: #000;
+}
 .flu-dialog-title {
   padding: 16px 20px; font-size: 16px; font-weight: 600;
   border-bottom: 1px solid #e5e7eb;

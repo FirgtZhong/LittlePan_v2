@@ -39,12 +39,22 @@ if(in_array($type, $type_image)){
   <link rel="stylesheet" href="//cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css">
   <link href="../assets/css/style.css" rel="stylesheet"/>
   <script src="//cdn.staticfile.org/jquery/2.1.4/jquery.min.js"></script>
+  <style>
+    html, body { margin: 0; padding: 0; background: #000; width: 100%; height: 100%; overflow: hidden; }
+    .panel-body { padding: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+    .image_view { max-width: 100%; max-height: 100%; min-height: 0; object-fit: contain; height: auto; }
+    .view { width: 100%; max-width: 960px; padding: 16px; box-sizing: border-box; }
+    .videosamplex { width: 100%; height: 100%; position: relative; background: #000; }
+    #videoplayer { width: 100%; height: 100%; display: block; object-fit: contain; background: #000; }
+    /* APlayer 容器适配：浅底版本 */
+    #aplayer { background: #fff; }
+  </style>
 </head>
 <body>
 <div class="panel-body" align="center">
 <?php
 if($filetype==1){
-  echo '<a href="'.$viewurl.'" title="点击查看原图" target="_blank"><img alt="loading" src="'.$viewurl.'" class="image_view"></a>';
+  echo '<a href="'.$viewurl.'" title="点击查看原图" target="_blank" rel="noopener noreferrer"><img alt="loading" src="'.$viewurl.'" class="image_view"></a>';
 }elseif($filetype==2){
   echo '<div class="view"><div id="aplayer"></div></div>';
 }elseif($filetype==3){
