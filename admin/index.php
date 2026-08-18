@@ -45,7 +45,7 @@ $mysqlversion=$DB->getColumn("select VERSION()");
     <li><b>程序最大运行时间：</b><span><?=ini_get('max_execution_time')?>s</span></li>
     <li><b>POST 请求许可：</b><span><?=ini_get('post_max_size')?></span></li>
     <li><b>文件上传许可：</b><span><?=ini_get('upload_max_filesize')?></span></li>
-    <li><b>源码版本：</b><span><a href="<?=htmlspecialchars($conf['url'])?>"><font color="green">LittlePan_v2-v1.9.1-RC</font></a></span></li>
+    <li><b>源码版本：</b><span><a href="<?=htmlspecialchars($conf['url'])?>"><font color="green">LittlePan_v2-v1.9.2-RC</font></a></span></li>
   </ul>
 </div>
 <script>

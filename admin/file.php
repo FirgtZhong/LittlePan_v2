@@ -62,7 +62,7 @@ $type_opts = [['1','文件名'],['2','文件Hash'],['3','文件格式'],['4','�
 
 <div id="listTable"></div>
 
-<script src="../assets/js/admin-fluent.js?v=1.9.1"></script>
+<script src="../assets/js/admin-fluent.js?v=1.9.2"></script>
 <script>
 var dstatus = 0;
 

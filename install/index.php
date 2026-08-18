@@ -26,7 +26,8 @@ if(file_exists('install.lock')){
     }
     // 默认：显示选择页面
     @header('Content-Type: text/html; charset=UTF-8');
-    echo '<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><title>LittlePan外链网盘 - 安装程序</title><link href="//cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"></head><body><div class="container"><br><div class="row"><div class="col-xs-12"><pre><h4>LittlePan外链网盘 - 安装程序</h4></pre></div><div class="col-xs-12"><div class="panel panel-warning"><div class="panel-heading text-center">检测到程序已安装（install.lock 存在）</div><div class="panel-body"><div class="alert alert-info">请选择您要执行的操作：</div><div class="list-group"><a href="update.php" class="list-group-item"><h4 class="list-group-item-heading"><span class="glyphicon glyphicon-arrow-up text-success"></span> 增量更新（推荐）</h4><p class="list-group-item-text">升级到新版本，<b>不会修改或删除已有数据</b>，只添加新表和新配置项。</p></a><a href="?step=reinstall_confirm" class="list-group-item"><h4 class="list-group-item-heading"><span class="glyphicon glyphicon-refresh text-danger"></span> 重新安装</h4><p class="list-group-item-text">全新安装，<b class="text-danger">将清空所有数据</b>。仅在没有其他办法时使用。</p></a></div></div></div></div></div><footer class="footer"><pre><center>Powered by <a href="https://github.com/FirgtZhong">FirgtZhong</a>. 源码版本：<a href="https://github.com/FirgtZhong/LittlePan_v2">LittlePan_v2-v1.9.1-RC</a></center></pre></footer></div></body></html>';
+    echo '<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><title>LittlePan外链网盘 - 安装程序</title><link href="//cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"></head><body><div class="container"><br><div class="row"><div class="col-xs-12"><pre><h4>LittlePan外链网盘 - 安装程序</h4></pre></div><div class="col-xs-12"><div class="panel panel-warning"><div class="panel-heading text-center">检测到程序已安装（install.lock 存在）</div><div class="panel-body"><div class="alert alert-info">请选择您要执行的操作：</div><div class="list-group"><a href="update.php" class="list-group-item"><h4 class="list-group-item-heading"><span class="glyphicon glyphicon-arrow-up text-success"></span> 增量更新（推荐）</h4><p class="list-group-item-text">升级到新版本，<b>不会修改或删除已有数据</b>，只添加新表和
+新配置项。</p></a><a href="?step=reinstall_confirm" class="list-group-item"><h4 class="list-group-item-heading"><span class="glyphicon glyphicon-refresh text-danger"></span> 重新安装</h4><p class="list-group-item-text">全新安装，<b class="text-danger">将清空所有数据</b>。仅在没有其他办法时使用。</p></a></div></div></div></div></div><footer class="footer"><pre><center>Powered by <a href="https://github.com/FirgtZhong">FirgtZhong</a>. 源码版本：<a href="https://github.com/FirgtZhong/LittlePan_v2">LittlePan_v2-v1.9.2-RC</a></center></pre></footer></div></body></html>';
     exit;
 }
 
@@ -244,7 +245,7 @@ $dbconfig=array(
     </div>
 
     <footer class="footer">
-        <pre><center>Powered by <a href="https://github.com/FirgtZhong">FirgtZhong</a>. 源码版本：<a href="https://github.com/FirgtZhong/LittlePan_v2">LittlePan_v2-v1.9.1-RC</a></center></pre>
+        <pre><center>Powered by <a href="https://github.com/FirgtZhong">FirgtZhong</a>. 源码版本：<a href="https://github.com/FirgtZhong/LittlePan_v2">LittlePan_v2-v1.9.2-RC</a></center></pre>
     </footer>
 </div>
 </body>

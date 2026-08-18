@@ -268,7 +268,7 @@ $needManual = isset($needManual) ? $needManual : (empty($dbconfig['user']) || em
         </div>
     </div>
     <footer class="footer">
-        <pre><center>Powered by <a href="https://github.com/FirgtZhong">FirgtZhong</a>. 源码版本：<a href="https://github.com/FirgtZhong/LittlePan_v2">LittlePan_v2-v1.9.1-RC</a></center></pre>
+        <pre><center>Powered by <a href="https://github.com/FirgtZhong">FirgtZhong</a>. 源码版本：<a href="https://github.com/FirgtZhong/LittlePan_v2">LittlePan_v2-v1.9.2-RC</a></center></pre>
     </footer>
 </div>
 </body>
