@@ -422,6 +422,17 @@ function is_view($type){
 	return false;
 }
 
+/**
+ * 判断文件类型是否为图片（仅图片，不含音频/视频）
+ * 用于 admin 文件管理的图片浏览器分流
+ */
+function is_image($type){
+	global $conf;
+	if (empty($type)) return false;
+	$type_image = explode('|', $conf['type_image']);
+	return in_array($type, $type_image);
+}
+
 
 function checkImage($fileurl){
 	global $conf;

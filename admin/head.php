@@ -12,6 +12,8 @@ $accent = !empty($conf['web_color']) ? $conf['web_color'] : '#0078d4';
   <link href="../assets/css/admin-fluent.css" rel="stylesheet"/>
   <script src="//cdn.staticfile.org/jquery/2.1.4/jquery.min.js"></script>
   <script type="module" src="https://cdn.jsdmirror.com/npm/@fluentui/web-components@2.6.1/dist/web-components.min.js"></script>
+  <script src="../assets/js/admin-fluent.js"></script>
+  <script src="../assets/js/admin-image-viewer.js"></script>
   <style>:root{--accent:<?=htmlspecialchars($accent)?>;}</style>
 </head>
 <body>

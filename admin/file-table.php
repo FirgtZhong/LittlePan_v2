@@ -86,9 +86,17 @@ while($res = $rs->fetch())
 	}
 	$fileurl = '/down.php/'.$res['hash'].'.'.($res['type']?$res['type']:'file').$pwd_ext1;
 	$viewurl = '/file.php?hash='.$res['hash'].$pwd_ext2;
-	$preview = is_view($res['type']) ? ' [<a href="javascript:showfile('.$res['id'].')">预览</a>]' : '';
+	$dlurl = $fileurl; // 下载链接（图片预览时复用）
+	$jsname = addslashes($res['name']);
+	if (is_image($res['type'])) {
+		$preview = ' [<a href="javascript:void(0)" onclick="showImage(\''.$viewurl.'\',\''.$jsname.'\',\''.$dlurl.'\')">预览</a>]';
+	} elseif (is_view($res['type'])) {
+		$preview = ' [<a href="javascript:showfile('.$res['id'].')">预览</a>]';
+	} else {
+		$preview = '';
+	}
 	echo '<tr>';
-	echo '<td><input type="checkbox" class="row-check" name="checkbox[]" value="'.$res['id'].'" onclick="syncMaster()"><b>'.$res['id'].'</b></td>';
+	echo '<td><div class="grid-id-cell"><input type="checkbox" class="row-check" name="checkbox[]" value="'.$res['id'].'" onclick="syncMaster()"><b>'.$res['id'].'</b></div></td>';
 	echo '<td><a href="'.$fileurl.'" title="点击下载"><i class="fa '.type_to_icon($res['type']).' fa-fw"></i>'.htmlspecialchars($res['name']).'</a>'.$preview.'</td>';
 	echo '<td>'.size_format($res['size']).'</td>';
 	echo '<td><font color="blue">'.($res['type']?htmlspecialchars($res['type']):'未知').'</font></td>';
