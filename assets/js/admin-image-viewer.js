@@ -227,4 +227,9 @@
   window.ImageViewer = { open: open, close: close, reset: reset, zoomIn: zoomIn, zoomOut: zoomOut };
   // PHP onclick 直接调用入口
   window.showImage = open;
+  // 从 data-* 属性读取参数（避免文件名引号破坏 onclick），供 file-table.php 的 <a data-url=... onclick="showImageFrom(this)"> 调用
+  window.showImageFrom = function (el) {
+    if (!el) return;
+    open(el.getAttribute('data-url'), el.getAttribute('data-name'), el.getAttribute('data-dl'));
+  };
 })();

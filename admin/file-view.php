@@ -63,18 +63,16 @@ if($filetype==1){
 }elseif($filetype==2){
   echo '<div class="view"><div id="aplayer"></div></div>';
 }elseif($filetype==3){
-  // 使用 HTML5 video 标签：浏览器原生支持的格式（mp4/webm/ogg）直接播放，
-  // 不支持的格式（mpg/mpeg/avi 等）由浏览器自行嗅探；
-  // 全部失败时显示下载/新窗口打开链接作为 fallback。
-  echo '<div class="videosamplex"><video id="videoplayer" controls autoplay preload="auto" playsinline>'.
-       '<source src="'.$viewurl.'" type="video/mp4">'.
-       '<source src="'.$viewurl.'" type="video/webm">'.
-       '<source src="'.$viewurl.'" type="video/ogg">'.
-       '<source src="'.$viewurl.'" type="video/quicktime">'.
-       '<source src="'.$viewurl.'">'. // 不指定 type，让浏览器嗅探
-       '<p class="video-fallback">您的浏览器无法直接播放此格式，'.
-       '<a href="'.$viewurl.'" target="_blank" rel="noopener noreferrer">点击下载或新窗口打开</a></p>'.
-       '</video></div>';
+  // HTML5 <video> 直接用 src，让浏览器根据服务端 Content-type 原生播放；
+  // 未绑定/未知后缀也交给浏览器嗅探。若原生不支持（如 mpg/mpeg/rmvb）则通过
+  // error 事件降级为下载/新窗口打开链接（fallback 放在 <video> 外部才能生效）。
+  echo '<div class="videosamplex">'.
+       '<video id="videoplayer" controls autoplay preload="auto" playsinline src="'.$viewurl.'"></video>'.
+       '<div class="video-fallback" id="video-fallback" style="display:none;">'.
+       '当前格式（'.htmlspecialchars($type).'）浏览器无法原生播放<br/>'.
+       '<a href="'.$viewurl.'" target="_blank" rel="noopener noreferrer">点击下载或新窗口打开</a>'.
+       '</div>'.
+       '</div>';
 }else{
   exit;
 }
@@ -97,6 +95,22 @@ var ap1 = new APlayer({
     }
 });
 </script>
-<?php }?>
+<?php } elseif($filetype==3){ ?>
+<script type="text/javascript">
+(function(){
+  var v = document.getElementById('videoplayer');
+  if (!v) return;
+  v.addEventListener('error', function() {
+    v.style.display = 'none';
+    var fb = document.getElementById('video-fallback');
+    if (fb) fb.style.display = '';
+  });
+  v.addEventListener('loadeddata', function() {
+    var fb = document.getElementById('video-fallback');
+    if (fb) fb.style.display = 'none';
+  });
+})();
+</script>
+<?php } ?>
 </body>
 </html>

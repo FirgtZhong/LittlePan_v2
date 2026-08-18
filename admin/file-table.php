@@ -86,10 +86,15 @@ while($res = $rs->fetch())
 	}
 	$fileurl = '/down.php/'.$res['hash'].'.'.($res['type']?$res['type']:'file').$pwd_ext1;
 	$viewurl = '/file.php?hash='.$res['hash'].$pwd_ext2;
+	$imgurl = '/view.php/'.$res['hash'].'.'.$res['type']; // 图片原始地址（供图片浏览器）
 	$dlurl = $fileurl; // 下载链接（图片预览时复用）
-	$jsname = addslashes($res['name']);
 	if (is_image($res['type'])) {
-		$preview = ' [<a href="javascript:void(0)" onclick="showImage(\''.$viewurl.'\',\''.$jsname.'\',\''.$dlurl.'\')">预览</a>]';
+		// 用 data-* 属性传递参数，避免文件名含引号/特殊字符破坏 onclick JS 字符串
+		$preview = ' [<a href="javascript:void(0)" class="img-preview" '.
+			'data-url="'.htmlspecialchars($imgurl, ENT_QUOTES).'" '.
+			'data-name="'.htmlspecialchars($res['name'], ENT_QUOTES).'" '.
+			'data-dl="'.htmlspecialchars($dlurl, ENT_QUOTES).'" '.
+			'onclick="showImageFrom(this)">预览</a>]';
 	} elseif (is_view($res['type'])) {
 		$preview = ' [<a href="javascript:showfile('.$res['id'].')">预览</a>]';
 	} else {

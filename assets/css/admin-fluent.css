@@ -326,24 +326,26 @@ textarea.form-control { resize: vertical; min-height: 34px; }
 .info-body h2, .info-body h3 { margin: 14px 0 8px; }
 .info-body a { color: var(--accent,#0078d4); }
 
-/* ===== 文件列表首格：复选框与 ID 水平对齐（inline-block 稳定方案） ===== */
+/* ===== 文件列表首格：复选框与 ID 水平对齐（flex 最稳健） ===== */
 .grid-id-cell {
-  display: inline-block;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
   white-space: nowrap;
-  vertical-align: middle;
 }
 .grid-id-cell input[type="checkbox"] {
-  display: inline-block;
-  vertical-align: middle;
-  margin: 0 6px 0 0;
+  margin: 0;
+  flex: 0 0 auto;
+  width: 15px;
+  height: 15px;
   cursor: pointer;
-  transform: translateY(-1px); /* 抵消 checkbox 内部基线偏移 */
+  accent-color: var(--accent, #0078d4);
 }
 .grid-id-cell b {
-  display: inline-block;
-  vertical-align: middle;
   font-weight: 600;
   color: #242424;
+  line-height: 1;
 }
 
 /* ===== 图片查看器（ImageViewer） ===== */

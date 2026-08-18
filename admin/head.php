@@ -9,11 +9,11 @@ $accent = !empty($conf['web_color']) ? $conf['web_color'] : '#0078d4';
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title><?=htmlspecialchars($title ?? '')?></title>
   <link href="//cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
-  <link href="../assets/css/admin-fluent.css" rel="stylesheet"/>
+  <link href="../assets/css/admin-fluent.css?v=1.9.1" rel="stylesheet"/>
   <script src="//cdn.staticfile.org/jquery/2.1.4/jquery.min.js"></script>
   <script type="module" src="https://cdn.jsdmirror.com/npm/@fluentui/web-components@2.6.1/dist/web-components.min.js"></script>
-  <script src="../assets/js/admin-fluent.js"></script>
-  <script src="../assets/js/admin-image-viewer.js"></script>
+  <script src="../assets/js/admin-fluent.js?v=1.9.1"></script>
+  <script src="../assets/js/admin-image-viewer.js?v=1.9.1"></script>
   <style>:root{--accent:<?=htmlspecialchars($accent)?>;}</style>
 </head>
 <body>
