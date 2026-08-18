@@ -326,27 +326,50 @@ textarea.form-control { resize: vertical; min-height: 34px; }
 .info-body h2, .info-body h3 { margin: 14px 0 8px; }
 .info-body a { color: var(--accent,#0078d4); }
 
-/* ===== 文件列表首格：复选框与 ID 水平对齐 ===== */
+/* ===== 文件列表首格：复选框与 ID 水平对齐（inline-block 稳定方案） ===== */
 .grid-id-cell {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+  display: inline-block;
+  white-space: nowrap;
+  vertical-align: middle;
 }
 .grid-id-cell input[type="checkbox"] {
-  margin: 0;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 6px 0 0;
   cursor: pointer;
+  transform: translateY(-1px); /* 抵消 checkbox 内部基线偏移 */
 }
-.grid-id-cell b { font-weight: 600; color: #242424; }
+.grid-id-cell b {
+  display: inline-block;
+  vertical-align: middle;
+  font-weight: 600;
+  color: #242424;
+}
 
 /* ===== 图片查看器（ImageViewer） ===== */
-.iv-dialog {
-  width: min(92vw, 1200px) !important;
-  max-width: min(92vw, 1200px) !important;
+/* 遮罩层：覆盖整个视口，点击外部关闭 */
+.iv-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 2100;
+  display: flex; align-items: center; justify-content: center;
+  animation: iv-fade-in 0.15s ease-out;
 }
-.iv-dialog .flu-dialog-body { padding: 0; background: #1a1a1a; }
+@keyframes iv-fade-in { from { opacity: 0; } to { opacity: 1; } }
+/* 对话框主体：始终用 div，不依赖 fluent-dialog */
+.iv-dialog {
+  background: #fff; border-radius: 8px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  width: min(92vw, 1200px); max-width: min(92vw, 1200px);
+  max-height: 92vh; display: flex; flex-direction: column;
+  overflow: hidden;
+  animation: iv-pop-in 0.2s ease-out;
+}
+@keyframes iv-pop-in { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 .iv-header {
   display: flex; align-items: center; justify-content: space-between;
   padding: 12px 20px; background: #fff; border-bottom: 1px solid #e5e7eb;
+  flex-shrink: 0;
 }
 .iv-title {
   font-size: 14px; color: #242424; font-weight: 600;
@@ -358,9 +381,11 @@ textarea.form-control { resize: vertical; min-height: 34px; }
   display: inline-flex; align-items: center; justify-content: center; font-size: 16px;
   transition: all 0.15s;
 }
-.iv-close:hover { background: #f3f4f6; color: #d13438; }
+.iv-close:hover { background: #fef2f2; color: #d13438; }
 .iv-body {
-  position: relative; width: 100%; height: min(78vh, 720px);
+  position: relative; width: 100%;
+  flex: 1 1 auto; min-height: 0;
+  height: min(78vh, 720px);
   overflow: hidden; background: #1a1a1a;
   display: flex; align-items: center; justify-content: center;
   cursor: grab; user-select: none; -webkit-user-select: none;
@@ -377,11 +402,13 @@ textarea.form-control { resize: vertical; min-height: 34px; }
   position: absolute; top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   color: #9ca3af; font-size: 28px; text-align: center;
+  pointer-events: none;
 }
 .iv-spinner .iv-spin-text { font-size: 12px; margin-top: 6px; }
 .iv-toolbar {
   display: flex; align-items: center; justify-content: center; gap: 8px;
   padding: 10px 16px; background: #fff; border-top: 1px solid #e5e7eb;
+  flex-shrink: 0; flex-wrap: wrap;
 }
 .iv-btn {
   width: 36px; height: 36px; border: 1px solid #e5e7eb; border-radius: 6px;
@@ -397,7 +424,7 @@ textarea.form-control { resize: vertical; min-height: 34px; }
 }
 .iv-scale {
   font-size: 12px; color: #6b7280; min-width: 52px; text-align: center;
-  font-family: Consolas, monospace;
+  font-family: Consolas, monospace; line-height: 36px;
 }
 .iv-hint {
   font-size: 11px; color: #9ca3af; margin-left: auto;

@@ -1,13 +1,13 @@
-/* Admin 图片查看器：替代 iframe file-view.php 用于图片预览
-   特性：鼠标拖拽平移、滚轮缩放、双击重置、键盘控制、Fluent UI 统一外观
-   提供：window.ImageViewer.open(viewUrl, name, dlUrl)
-        window.showImage(viewUrl, name, dlUrl)  // PHP 端 onclick 调用入口
-   依赖：admin-fluent.css 中的 .iv-* 样式
-   可选：FluentUI.ready（如果存在会等待 fluent-dialog 升级；否则降级为普通 div 容器） */
+/* Admin 图片查看器：用于 admin 文件管理页图片预览
+   特性：鼠标拖拽平移、滚轮缩放（以鼠标为锚点）、双击重置、键盘控制、Fluent UI 风格统一
+   全局 API：
+     window.ImageViewer.open(viewUrl, name, dlUrl)  // 程序式调用
+     window.showImage(viewUrl, name, dlUrl)        // PHP onclick 入口
+   实现：始终用 div + overlay 容器，不依赖 fluent-dialog 注册状态，最稳定 */
 (function () {
-  var dlg = null, body = null, img = null, spinner = null, scaleLbl = null;
+  var overlay = null, dlg = null, body = null, img = null, spinner = null, scaleLbl = null;
   var scale = 1, tx = 0, ty = 0;
-  var dragging = false, lastX = 0, lastY = 0, hasMoved = false;
+  var dragging = false, lastX = 0, lastY = 0;
   var curUrl = '', curName = '', curDl = '';
 
   function applyTransform() {
@@ -29,17 +29,16 @@
   function zoomOut() { setScale(scale / 1.2); }
 
   function close() {
-    if (!dlg) return;
-    try { if (typeof dlg.hide === 'function') dlg.hide(); } catch (e) {}
-    if (dlg.parentNode) dlg.parentNode.removeChild(dlg);
-    dlg = null; body = null; img = null; spinner = null; scaleLbl = null;
+    if (!overlay) return;
+    if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+    overlay = null; dlg = null; body = null; img = null; spinner = null; scaleLbl = null;
     document.removeEventListener('keydown', onKey);
     document.removeEventListener('mousemove', onMove);
     document.removeEventListener('mouseup', onUp);
   }
 
   function onKey(e) {
-    if (!dlg) return;
+    if (!overlay) return;
     var step = 40;
     switch (e.key) {
       case 'Escape': close(); e.preventDefault(); break;
@@ -52,11 +51,9 @@
       case '0': reset(); e.preventDefault(); break;
     }
   }
-
   function onMove(e) {
-    if (!dragging || !dlg) return;
+    if (!dragging || !overlay) return;
     var dx = e.clientX - lastX, dy = e.clientY - lastY;
-    if (Math.abs(dx) > 1 || Math.abs(dy) > 1) hasMoved = true;
     tx += dx; ty += dy;
     lastX = e.clientX; lastY = e.clientY;
     applyTransform();
@@ -69,16 +66,17 @@
   }
 
   function buildDom() {
-    // 使用 fluent-dialog 若可用，否则降级为 div 模态容器
-    var isFluent = window.FluentUI && window.FluentUI.ready;
-    dlg = document.createElement(isFluent ? 'fluent-dialog' : 'div');
-    dlg.className = 'flu-dialog flu-dialog-wide iv-dialog';
-    if (isFluent) {
-      try { dlg.modal = true; } catch (e) { dlg.setAttribute('modal', ''); }
-    } else {
-      dlg.style.position = 'fixed';
-      dlg.style.zIndex = '2000';
-    }
+    // 1. 遮罩层
+    overlay = document.createElement('div');
+    overlay.className = 'iv-overlay';
+    overlay.addEventListener('mousedown', function (e) {
+      // 点击遮罩（非对话框）关闭
+      if (e.target === overlay) close();
+    });
+
+    // 2. 对话框主体
+    dlg = document.createElement('div');
+    dlg.className = 'iv-dialog';
 
     // 头部
     var header = document.createElement('div');
@@ -96,7 +94,7 @@
     header.appendChild(closeBtn);
     dlg.appendChild(header);
 
-    // 主体
+    // 主体（图片容器）
     body = document.createElement('div');
     body.className = 'iv-body';
     img = document.createElement('img');
@@ -125,7 +123,7 @@
     // 拖拽
     body.addEventListener('mousedown', function (e) {
       if (e.button !== 0) return;
-      dragging = true; hasMoved = false;
+      dragging = true;
       lastX = e.clientX; lastY = e.clientY;
       body.classList.add('is-grabbing');
       e.preventDefault();
@@ -134,7 +132,7 @@
     body.addEventListener('wheel', function (e) {
       e.preventDefault();
       var delta = e.deltaY < 0 ? 1.15 : 1 / 1.15;
-      // 以鼠标位置为锚点缩放（让缩放更自然）
+      // 以鼠标位置为锚点缩放（保持鼠标下的像素不动）
       var rect = body.getBoundingClientRect();
       var cx = e.clientX - rect.left - rect.width / 2;
       var cy = e.clientY - rect.top - rect.height / 2;
@@ -167,7 +165,7 @@
     var bIn = mkBtn('zoomin', 'fa-search-plus', '放大 (+)');
     var bReset = mkBtn('reset', 'fa-refresh', '重置 (0)');
 
-    // 下载按钮（带链接）
+    // 下载按钮
     var bDl = document.createElement('a');
     bDl.className = 'iv-btn';
     bDl.href = curDl || curUrl;
@@ -209,13 +207,8 @@
     });
 
     dlg.appendChild(toolbar);
-    document.body.appendChild(dlg);
-
-    // 显示
-    if (isFluent) {
-      try { if (typeof dlg.show === 'function') dlg.show(); else dlg.hidden = false; }
-      catch (e) { dlg.hidden = false; }
-    }
+    overlay.appendChild(dlg);
+    document.body.appendChild(overlay);
   }
 
   function open(viewUrl, name, dlUrl) {
@@ -224,23 +217,11 @@
     curName = name || '';
     curDl = dlUrl || viewUrl;
 
-    // 若 FluentUI 尚未 ready（首次加载 CDN 可能未升级），用普通 div；否则等 ready 再创建
-    if (window.FluentUI && window.FluentUI.ready && window.customElements && customElements.whenDefined) {
-      Promise.race([
-        customElements.whenDefined('fluent-dialog'),
-        new Promise(function (r) { setTimeout(r, 1500); })
-      ]).then(function () {
-        buildDom();
-        document.addEventListener('keydown', onKey);
-        document.addEventListener('mousemove', onMove);
-        document.addEventListener('mouseup', onUp);
-      });
-    } else {
-      buildDom();
-      document.addEventListener('keydown', onKey);
-      document.addEventListener('mousemove', onMove);
-      document.addEventListener('mouseup', onUp);
-    }
+    buildDom();
+
+    document.addEventListener('keydown', onKey);
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
   }
 
   window.ImageViewer = { open: open, close: close, reset: reset, zoomIn: zoomIn, zoomOut: zoomOut };

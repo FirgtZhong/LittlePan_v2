@@ -44,8 +44,13 @@ if(in_array($type, $type_image)){
     .panel-body { padding: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
     .image_view { max-width: 100%; max-height: 100%; min-height: 0; object-fit: contain; height: auto; }
     .view { width: 100%; max-width: 960px; padding: 16px; box-sizing: border-box; }
-    .videosamplex { width: 100%; height: 100%; position: relative; background: #000; }
+    .videosamplex { width: 100%; height: 100%; position: relative; background: #000; display: flex; align-items: center; justify-content: center; }
     #videoplayer { width: 100%; height: 100%; display: block; object-fit: contain; background: #000; }
+    .video-fallback {
+      color: #f3f4f6; text-align: center; padding: 24px;
+      font-size: 14px; line-height: 1.7;
+    }
+    .video-fallback a { color: #60a5fa; text-decoration: underline; }
     /* APlayer 容器适配：浅底版本 */
     #aplayer { background: #fff; }
   </style>
@@ -58,7 +63,18 @@ if($filetype==1){
 }elseif($filetype==2){
   echo '<div class="view"><div id="aplayer"></div></div>';
 }elseif($filetype==3){
-  echo '<div class="videosamplex"><video id="videoplayer"></video></div>';
+  // 使用 HTML5 video 标签：浏览器原生支持的格式（mp4/webm/ogg）直接播放，
+  // 不支持的格式（mpg/mpeg/avi 等）由浏览器自行嗅探；
+  // 全部失败时显示下载/新窗口打开链接作为 fallback。
+  echo '<div class="videosamplex"><video id="videoplayer" controls autoplay preload="auto" playsinline>'.
+       '<source src="'.$viewurl.'" type="video/mp4">'.
+       '<source src="'.$viewurl.'" type="video/webm">'.
+       '<source src="'.$viewurl.'" type="video/ogg">'.
+       '<source src="'.$viewurl.'" type="video/quicktime">'.
+       '<source src="'.$viewurl.'">'. // 不指定 type，让浏览器嗅探
+       '<p class="video-fallback">您的浏览器无法直接播放此格式，'.
+       '<a href="'.$viewurl.'" target="_blank" rel="noopener noreferrer">点击下载或新窗口打开</a></p>'.
+       '</video></div>';
 }else{
   exit;
 }
@@ -80,20 +96,6 @@ var ap1 = new APlayer({
         url: '<?php echo $viewurl?>',
     }
 });
-</script>
-<?php }elseif($filetype==3){?>
-<script type="text/javascript" src="../assets/js/ckplayer.min.js"></script>
-<script type="text/javascript">
-    var videoObject = {
-      container: '.videosamplex',
-      variable: 'player',
-      mobileCkControls:true,
-      mobileAutoFull:false,
-      h5container:'#videoplayer',
-      flashplayer:false,
-      video:'<?php echo $viewurl?>'
-    };
-    var player=new ckplayer(videoObject);
 </script>
 <?php }?>
 </body>
