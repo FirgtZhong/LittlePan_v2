@@ -5,7 +5,8 @@ class Local {
 	var $path = null;
 	function __construct($filepath = null) {
 		if($filepath && is_dir($filepath)){
-			$this->path = $filepath;
+			// 统一补齐结尾斜杠，防止 filepath 无斜杠时把文件名直接拼接成 {目录}{hash}
+			$this->path = rtrim($filepath, '/\\') . '/';
 		}else{
 			$this->path = ROOT.'file/';
 			if(!is_dir($this->path)) mkdir($this->path);
